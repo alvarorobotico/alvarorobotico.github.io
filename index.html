@@ -1,5 +1,819 @@
-<html>
-  <body>
-    <h1>Mi pagina web</h1>
-  </body>
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLACK AND WHITE | Exclusive Menswear</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800;900&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Cinzel', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        gold: '#D4AF37',
+                        darkBg: '#0a0a0a',
+                        cardBg: '#121212',
+                        accentGray: '#1f1f1f',
+                        lightGray: '#888888',
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 4s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-8px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Intro Screen / Curtain Scroll Animation styles */
+        #hero-cover {
+            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
+            will-change: transform, opacity;
+        }
+        
+        .hero-hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Subtle Luxury Gradients & Borders */
+        .gold-border-glow:hover {
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.15);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .glass-nav {
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        .glass-card {
+            background: rgba(18, 18, 18, 0.7);
+            backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="bg-darkBg text-white font-sans antialiased selection:bg-white selection:text-black overflow-x-hidden">
+
+    <!-- ========================================== -->
+    <!-- 1. INTRO / HERO COVER OVERLAY (PANTALLA DE BIENVENIDA) -->
+    <!-- ========================================== -->
+    <div id="hero-cover" class="fixed inset-0 z-50 flex flex-col justify-between items-center bg-black text-white p-6 sm:p-12 overflow-hidden">
+        <!-- Background Overlay Image with Dark Vignette -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2000&auto=format&fit=crop" 
+                 alt="Black and White Fashion Editorial" 
+                 class="w-full h-full object-cover object-center opacity-35 filter grayscale contrast-125 scale-105 transition-transform duration-10000 ease-out" 
+                 id="hero-bg-img">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/80"></div>
+        </div>
+
+        <!-- Header Minimalist Info -->
+        <div class="relative z-10 w-full flex justify-between items-center max-w-7xl mx-auto border-b border-white/10 pb-4">
+            <span class="text-xs tracking-[0.4em] uppercase font-light text-gray-400">Colección Alta Costura 2026</span>
+            <span class="text-xs tracking-[0.3em] font-serif text-gold">EDICIÓN LIMITADA</span>
+        </div>
+
+        <!-- Central Main Typography -->
+        <div class="relative z-10 text-center max-w-4xl my-auto py-12 px-4 flex flex-col items-center">
+            <p class="text-xs sm:text-sm tracking-[0.6em] text-gray-400 uppercase mb-4 font-light animate-pulse-slow">
+                MASCULINIDAD ELEGANTE Y ÚNICA
+            </p>
+            <h1 class="font-serif text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tighter uppercase mb-6 text-glow leading-none">
+                BLACK<span class="font-light italic text-gray-400">&</span>WHITE
+            </h1>
+            <p class="text-sm sm:text-lg text-gray-300 font-light max-w-xl mx-auto leading-relaxed mb-8 tracking-wide">
+                Arquitectura textil para el hombre contemporáneo. Piezas de autor, cortes impecables y sobriedad atemporal.
+            </p>
+
+            <button id="enter-btn" onclick="dismissHero()" class="group relative inline-flex items-center justify-center px-8 py-4 overflow-hidden font-medium tracking-widest text-xs uppercase border border-white/30 rounded-none transition duration-500 ease-out hover:border-white">
+                <span class="absolute inset-0 w-full h-full bg-white transition-all duration-500 ease-out transform -translate-x-full group-hover:translate-x-0 group-hover:bg-white"></span>
+                <span class="relative z-10 text-white group-hover:text-black transition-colors duration-500 flex items-center gap-3">
+                    EXPLORAR COLECCIÓN <i class="ph ph-arrow-down text-base group-hover:translate-y-1 transition-transform"></i>
+                </span>
+            </button>
+        </div>
+
+        <!-- Scroll Indicator Footer -->
+        <div class="relative z-10 flex flex-col items-center gap-2 cursor-pointer" onclick="dismissHero()">
+            <span class="text-[10px] tracking-[0.3em] uppercase text-gray-400 font-light">Desliza para entrar</span>
+            <div class="w-5 h-9 border border-white/30 rounded-full flex justify-center p-1">
+                <div class="w-1 h-2 bg-white rounded-full animate-bounce"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- 2. NAVBAR FLOTANTE Y NAVEGACIÓN -->
+    <!-- ========================================== -->
+    <header class="fixed top-0 left-0 w-full z-40 glass-nav border-b border-white/10 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo -->
+            <a href="#" class="font-serif text-xl sm:text-2xl font-bold tracking-widest uppercase flex items-center gap-1">
+                <span>BLACK</span><span class="font-light text-gray-400">&</span><span>WHITE</span>
+            </a>
+
+            <!-- Desktop Menu Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-xs tracking-[0.2em] font-medium uppercase text-gray-300">
+                <a href="#catalogo" onclick="setCategory('all')" class="hover:text-white transition-colors py-2">Todos</a>
+                <a href="#catalogo" onclick="setCategory('blazers')" class="hover:text-white transition-colors py-2">Blazers</a>
+                <a href="#catalogo" onclick="setCategory('camisas')" class="hover:text-white transition-colors py-2">Camisas</a>
+                <a href="#catalogo" onclick="setCategory('abrigos')" class="hover:text-white transition-colors py-2">Abrigos</a>
+                <a href="#catalogo" onclick="setCategory('calzado')" class="hover:text-white transition-colors py-2">Calzado</a>
+            </nav>
+
+            <!-- Actions: Cart & Mobile Menu Toggle -->
+            <div class="flex items-center space-x-6">
+                <!-- Search Button (Visual enhancement) -->
+                <button onclick="toggleSearchModal()" class="text-gray-300 hover:text-white transition-colors p-1" title="Buscar">
+                    <i class="ph ph-magnifying-glass text-2xl"></i>
+                </button>
+
+                <!-- Cart Button -->
+                <button onclick="toggleCart()" class="relative text-gray-300 hover:text-white transition-colors p-1 flex items-center">
+                    <i class="ph ph-shopping-bag text-2xl"></i>
+                    <span id="cart-count" class="absolute -top-1 -right-2 bg-white text-black font-bold text-[10px] w-5 h-5 rounded-full flex items-center justify-center transition-transform scale-100">0</span>
+                </button>
+
+                <!-- Mobile Menu Icon -->
+                <button onclick="toggleMobileMenu()" class="md:hidden text-gray-300 hover:text-white focus:outline-none">
+                    <i class="ph ph-list text-2xl" id="menu-icon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-white/10 px-6 py-6 transition-all">
+            <div class="flex flex-col space-y-4 text-xs tracking-[0.2em] uppercase font-medium">
+                <a href="#catalogo" onclick="setCategory('all'); toggleMobileMenu()" class="hover:text-gold py-1">Colección Completa</a>
+                <a href="#catalogo" onclick="setCategory('blazers'); toggleMobileMenu()" class="hover:text-gold py-1">Blazers & Trajes</a>
+                <a href="#catalogo" onclick="setCategory('camisas'); toggleMobileMenu()" class="hover:text-gold py-1">Camisas Haute Couture</a>
+                <a href="#catalogo" onclick="setCategory('abrigos'); toggleMobileMenu()" class="hover:text-gold py-1">Abrigos de Autor</a>
+                <a href="#catalogo" onclick="setCategory('calzado'); toggleMobileMenu()" class="hover:text-gold py-1">Calzado Executive</a>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- ========================================== -->
+    <!-- 3. TIENDA PRINCIPAL (CONTENIDO) -->
+    <!-- ========================================== -->
+    <main class="pt-24 pb-20">
+
+        <!-- Banner Promocional de Firma -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-8 mt-6 mb-16">
+            <div class="relative rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-r from-neutral-900 to-black p-8 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="max-w-xl">
+                    <span class="text-xs uppercase tracking-[0.3em] text-gold font-semibold mb-2 block">Corte & Confección de Lujo</span>
+                    <h2 class="font-serif text-3xl md:text-5xl font-bold tracking-tight mb-4 leading-tight">
+                        Elegancia Minimalista sin Concesiones
+                    </h2>
+                    <p class="text-gray-400 text-sm md:text-base leading-relaxed mb-6 font-light">
+                        Descubre piezas confeccionadas en lana virgen, sedas italianas y pieles seleccionadas. Diseñadas para destacar con distinción sutil.
+                    </p>
+                    <a href="#catalogo" class="inline-block bg-white text-black text-xs uppercase tracking-[0.2em] font-semibold px-6 py-3 hover:bg-gold hover:text-black transition-colors">
+                        Ver Selección de Temporada
+                    </a>
+                </div>
+                <div class="w-full md:w-1/3 aspect-[4/3] rounded-lg overflow-hidden border border-white/10 shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=800&auto=format&fit=crop" 
+                         alt="Suit Detail" class="w-full h-full object-cover filter grayscale">
+                </div>
+            </div>
+        </section>
+
+
+        <!-- CATALOGO SECTION -->
+        <section id="catalogo" class="max-w-7xl mx-auto px-4 sm:px-8 scroll-mt-28">
+            
+            <!-- Filters & Section Title Header -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-white/10 pb-6 mb-12 gap-6">
+                <div>
+                    <h2 class="font-serif text-2xl sm:text-4xl font-bold tracking-wider uppercase">Colección Masculina</h2>
+                    <p class="text-xs text-gray-400 tracking-widest uppercase mt-1">Prendas exclusivas de producción limitada</p>
+                </div>
+
+                <!-- Category Filter Pills -->
+                <div class="flex flex-wrap gap-2 text-xs uppercase tracking-widest" id="category-filters">
+                    <button onclick="setCategory('all')" id="btn-all" class="filter-btn active px-4 py-2 border border-white bg-white text-black transition-all duration-300">
+                        Todos
+                    </button>
+                    <button onclick="setCategory('blazers')" id="btn-blazers" class="filter-btn px-4 py-2 border border-white/20 text-gray-300 hover:border-white transition-all duration-300">
+                        Blazers
+                    </button>
+                    <button onclick="setCategory('camisas')" id="btn-camisas" class="filter-btn px-4 py-2 border border-white/20 text-gray-300 hover:border-white transition-all duration-300">
+                        Camisas
+                    </button>
+                    <button onclick="setCategory('abrigos')" id="btn-abrigos" class="filter-btn px-4 py-2 border border-white/20 text-gray-300 hover:border-white transition-all duration-300">
+                        Abrigos
+                    </button>
+                    <button onclick="setCategory('calzado')" id="btn-calzado" class="filter-btn px-4 py-2 border border-white/20 text-gray-300 hover:border-white transition-all duration-300">
+                        Calzado
+                    </button>
+                </div>
+            </div>
+
+            <!-- Products Grid Container -->
+            <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+                <!-- JavaScript renders product cards dynamically here -->
+            </div>
+
+        </section>
+
+
+        <!-- VALUE PROPOSITIONS (LUXURY SERVICES) -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-8 mt-28 border-t border-white/10 pt-16">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="p-6 border border-white/5 bg-cardBg/40 rounded-xl hover:border-white/20 transition-colors">
+                    <i class="ph ph-truck text-3xl text-gold mb-4 inline-block"></i>
+                    <h3 class="font-serif text-lg font-semibold tracking-wider mb-2 uppercase">Envío Express VIP</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed font-light">Entrega prioritaria asegurada y embalaje exclusivo de alta protección para todas tus prendas.</p>
+                </div>
+                <div class="p-6 border border-white/5 bg-cardBg/40 rounded-xl hover:border-white/20 transition-colors">
+                    <i class="ph ph-scissors text-3xl text-gold mb-4 inline-block"></i>
+                    <h3 class="font-serif text-lg font-semibold tracking-wider mb-2 uppercase">Sastrería a Medida</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed font-light">Servicio de ajuste personalizado en boutique para garantizar la caída perfecta de tu traje.</p>
+                </div>
+                <div class="p-6 border border-white/5 bg-cardBg/40 rounded-xl hover:border-white/20 transition-colors">
+                    <i class="ph ph-shield-check text-3xl text-gold mb-4 inline-block"></i>
+                    <h3 class="font-serif text-lg font-semibold tracking-wider mb-2 uppercase">Garantía de Autenticidad</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed font-light">Certificado numérico de serie en cada pieza de nuestra colección limitada de autor.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- ========================================== -->
+    <!-- 4. QUICK VIEW MODAL (VISTA RÁPIDA DE PRODUCTO) -->
+    <!-- ========================================== -->
+    <div id="quickview-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="relative bg-cardBg border border-white/20 w-full max-w-4xl overflow-hidden rounded-xl shadow-2xl flex flex-col md:flex-row max-h-[90vh]">
+            
+            <!-- Close Button -->
+            <button onclick="closeQuickView()" class="absolute top-4 right-4 z-10 w-10 h-10 bg-black/60 text-white rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-colors">
+                <i class="ph ph-x text-xl"></i>
+            </button>
+
+            <!-- Image View -->
+            <div class="w-full md:w-1/2 h-72 md:h-auto relative bg-neutral-900">
+                <img id="qv-image" src="" alt="" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Product Details -->
+            <div class="w-full md:w-1/2 p-6 sm:p-8 flex flex-col justify-between overflow-y-auto">
+                <div>
+                    <span id="qv-category" class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold">Categoría</span>
+                    <h3 id="qv-title" class="font-serif text-2xl sm:text-3xl font-bold tracking-wider mt-1 mb-2">Nombre del Producto</h3>
+                    <p id="qv-price" class="text-xl font-light text-white mb-4">€0.00</p>
+                    <p id="qv-description" class="text-xs text-gray-400 leading-relaxed font-light mb-6">Descripción del producto.</p>
+                    
+                    <!-- Size Selector -->
+                    <div class="mb-6">
+                        <label class="block text-xs uppercase tracking-widest text-gray-300 mb-2">Talla</label>
+                        <div class="flex gap-2" id="size-selector">
+                            <button onclick="selectSize(this)" class="size-btn px-3 py-1.5 border border-white/20 text-xs hover:border-white transition-colors">S</button>
+                            <button onclick="selectSize(this)" class="size-btn active px-3 py-1.5 border border-white bg-white text-black text-xs font-bold transition-colors">M</button>
+                            <button onclick="selectSize(this)" class="size-btn px-3 py-1.5 border border-white/20 text-xs hover:border-white transition-colors">L</button>
+                            <button onclick="selectSize(this)" class="size-btn px-3 py-1.5 border border-white/20 text-xs hover:border-white transition-colors">XL</button>
+                        </div>
+                    </div>
+
+                    <!-- Composition details -->
+                    <div class="border-t border-white/10 pt-4 mb-6">
+                        <ul class="text-[11px] text-gray-400 space-y-1">
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-gold"></i> Material: 100% Lana Merino Extra Fina</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-gold"></i> Confeccionado a mano en Italia</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-gold"></i> Envío VIP y devoluciones gratuitas</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Add to Cart CTA -->
+                <button id="qv-add-btn" class="w-full bg-white text-black font-semibold text-xs uppercase tracking-[0.2em] py-4 hover:bg-gold hover:text-black transition-colors flex items-center justify-center gap-2">
+                    <i class="ph ph-shopping-bag text-lg"></i> Añadir a la Cesta
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- 5. CART DRAWER (CARRITO DE COMPRAS LATERAL) -->
+    <!-- ========================================== -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 pointer-events-none transition-opacity duration-300 opacity-0">
+        <!-- Backdrop -->
+        <div onclick="toggleCart()" class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+
+        <!-- Sliding Panel -->
+        <div class="absolute top-0 right-0 h-full w-full max-w-md bg-darkBg border-l border-white/10 shadow-2xl p-6 flex flex-col justify-between transform translate-x-full transition-transform duration-300 ease-out pointer-events-auto" id="cart-panel">
+            
+            <!-- Cart Header -->
+            <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                <div class="flex items-center gap-2">
+                    <i class="ph ph-shopping-bag text-xl text-gold"></i>
+                    <h3 class="font-serif text-lg font-bold tracking-wider uppercase">Cesta de Compra</h3>
+                </div>
+                <button onclick="toggleCart()" class="text-gray-400 hover:text-white p-1">
+                    <i class="ph ph-x text-2xl"></i>
+                </button>
+            </div>
+
+            <!-- Cart Items Scroll List -->
+            <div id="cart-items" class="my-6 overflow-y-auto flex-1 space-y-4 pr-1">
+                <!-- Dynamic Items from JavaScript -->
+            </div>
+
+            <!-- Cart Footer Summary & Checkout -->
+            <div class="border-t border-white/10 pt-4 space-y-4">
+                <div class="flex justify-between items-center text-sm">
+                    <span class="text-gray-400 font-light">Subtotal</span>
+                    <span id="cart-subtotal" class="font-serif font-bold text-lg text-white">€0.00</span>
+                </div>
+                <p class="text-[10px] text-gray-500 font-light">Impuestos incluidos. Envío calculado al finalizar el pedido.</p>
+                
+                <button onclick="checkout()" class="w-full bg-white text-black font-semibold text-xs uppercase tracking-[0.2em] py-4 hover:bg-gold hover:text-black transition-colors flex items-center justify-center gap-2">
+                    Proceder al Pago <i class="ph ph-arrow-right text-base"></i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- 6. SEARCH MODAL (BUSCADOR SIMULADO) -->
+    <!-- ========================================== -->
+    <div id="search-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-start justify-center pt-24 px-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="w-full max-w-2xl bg-cardBg border border-white/20 rounded-xl p-6 relative">
+            <button onclick="toggleSearchModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <i class="ph ph-x text-2xl"></i>
+            </button>
+            <h3 class="font-serif text-lg uppercase tracking-wider mb-4">Buscar en Black & White</h3>
+            <div class="relative">
+                <input type="text" id="search-input" onkeyup="handleSearch()" placeholder="Ej. Blazer, abrigo lana, camisa..." class="w-full bg-neutral-900 border border-white/20 rounded-lg px-4 py-3 pl-10 text-sm text-white focus:outline-none focus:border-white">
+                <i class="ph ph-magnifying-glass absolute left-3 top-3.5 text-gray-400 text-lg"></i>
+            </div>
+            <div id="search-results" class="mt-4 max-h-60 overflow-y-auto space-y-2">
+                <!-- Search results rendered here -->
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- 7. FOOTER DE LUJO -->
+    <!-- ========================================== -->
+    <footer class="bg-black border-t border-white/10 pt-16 pb-8 text-gray-400 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+            <!-- Col 1: Brand Info -->
+            <div class="space-y-4">
+                <a href="#" class="font-serif text-xl font-bold tracking-widest uppercase text-white block">
+                    BLACK<span class="font-light text-gray-400">&</span>WHITE
+                </a>
+                <p class="font-light leading-relaxed">
+                    Firma de moda masculina orientada a la distinción y sofisticación atemporal. Confección de autor con materiales nobles.
+                </p>
+                <div class="flex space-x-4 text-lg text-white pt-2">
+                    <a href="#" class="hover:text-gold transition-colors"><i class="ph ph-instagram-logo"></i></a>
+                    <a href="#" class="hover:text-gold transition-colors"><i class="ph ph-facebook-logo"></i></a>
+                    <a href="#" class="hover:text-gold transition-colors"><i class="ph ph-twitter-logo"></i></a>
+                </div>
+            </div>
+
+            <!-- Col 2: Colecciones -->
+            <div class="space-y-3">
+                <h4 class="font-serif text-white tracking-widest uppercase font-semibold text-sm">Colección</h4>
+                <ul class="space-y-2 font-light">
+                    <li><a href="#catalogo" onclick="setCategory('blazers')" class="hover:text-white transition-colors">Blazers & Trajes</a></li>
+                    <li><a href="#catalogo" onclick="setCategory('camisas')" class="hover:text-white transition-colors">Camisas de Seda & Algodón</a></li>
+                    <li><a href="#catalogo" onclick="setCategory('abrigos')" class="hover:text-white transition-colors">Abrigos y Gabardinas</a></li>
+                    <li><a href="#catalogo" onclick="setCategory('calzado')" class="hover:text-white transition-colors">Calzado & Calzado de Gala</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 3: Atención al Cliente -->
+            <div class="space-y-3">
+                <h4 class="font-serif text-white tracking-widest uppercase font-semibold text-sm">Atención VIP</h4>
+                <ul class="space-y-2 font-light">
+                    <li><a href="#" class="hover:text-white transition-colors">Cita Privada en Boutique</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Guía de Tallas & Ajuste</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Mantenimiento de Prendas</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Envíos y Devoluciones</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 4: Newsletter -->
+            <div class="space-y-3">
+                <h4 class="font-serif text-white tracking-widest uppercase font-semibold text-sm">Newsletter Exclusiva</h4>
+                <p class="font-light leading-relaxed">Recibe invitaciones a ventas privadas y lanzamientos de ediciones limitadas.</p>
+                <form onsubmit="subscribeNewsletter(event)" class="flex flex-col gap-2 pt-2">
+                    <input type="email" required placeholder="Tu correo electrónico" class="bg-neutral-900 border border-white/20 px-3 py-2 text-xs text-white focus:outline-none focus:border-white">
+                    <button type="submit" class="bg-white text-black font-bold uppercase tracking-widest py-2 hover:bg-gold transition-colors">Suscribirse</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-8 pt-8 flex flex-col sm:flex-row justify-between items-center text-[10px] tracking-widest uppercase text-gray-500 gap-4">
+            <p>&copy; 2026 BLACK AND WHITE MENSWEAR. TODOS LOS DERECHOS RESERVADOS.</p>
+            <div class="flex space-x-6">
+                <a href="#" class="hover:text-gray-300">PRIVACIDAD</a>
+                <a href="#" class="hover:text-gray-300">TÉRMINOS</a>
+                <a href="#" class="hover:text-gray-300">COOKIES</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT LOGIC -->
+    <!-- ========================================== -->
+    <script>
+        // DATA PRODUCTS (ROPA MASCULINA DE LUJO)
+        const products = [
+            {
+                id: 1,
+                name: "Blazer Midnight Tuxedo",
+                category: "blazers",
+                price: 890,
+                image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=800&auto=format&fit=crop",
+                description: "Blazer de esmoquin con solapa de satén negro en seda. Corte slim refinado pensado para eventos de etiqueta nocturna."
+            },
+            {
+                id: 2,
+                name: "Camisa Silk Couture White",
+                category: "camisas",
+                price: 340,
+                image: "https://images.unsplash.com/photo-1620012253295-c15cc3e65df4?q=80&w=800&auto=format&fit=crop",
+                description: "Camisa de vestir blanca confeccionada en fino algodón egipcio con botones de madreperla oscurecida."
+            },
+            {
+                id: 3,
+                name: "Abrigo Cashmere Double-Breasted",
+                category: "abrigos",
+                price: 1450,
+                image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=800&auto=format&fit=crop",
+                description: "Abrigo largo cruzado en mezcla de cashmere y lana virgen de alta densidad. Estructura imponente y sobria."
+            },
+            {
+                id: 4,
+                name: "Mocasín Executive Leather Noir",
+                category: "calzado",
+                price: 520,
+                image: "https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?q=80&w=800&auto=format&fit=crop",
+                description: "Calzado artesanal en piel de becerro negra con cosido Goodyear y hebilla discreta de acabado mate."
+            },
+            {
+                id: 5,
+                name: "Blazer Charcoal Double Wool",
+                category: "blazers",
+                price: 950,
+                image: "https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?q=80&w=800&auto=format&fit=crop",
+                description: "Chaqueta estructurada de sastre en tono gris carbón profundo con textura micro-cheviot."
+            },
+            {
+                id: 6,
+                name: "Camisa Black Satin Collar",
+                category: "camisas",
+                price: 380,
+                image: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?q=80&w=800&auto=format&fit=crop",
+                description: "Camisa en satén técnico negro brillante. Diseño vanguardista de caida fluida y puños franceses."
+            },
+            {
+                id: 7,
+                name: "Gabardina Impermeable Monochorome",
+                category: "abrigos",
+                price: 1200,
+                image: "https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=800&auto=format&fit=crop",
+                description: "Gabardina técnica resistente al agua en tono negro mate absoluto. Cierre oculto de líneas depuradas."
+            },
+            {
+                id: 8,
+                name: "Zapato Oxford Royale Patent",
+                category: "calzado",
+                price: 610,
+                image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?q=80&w=800&auto=format&fit=crop",
+                description: "Zapato clásico estilo Oxford en charol de alta distinción. Horma anatómica para máximo confort."
+            }
+        ];
+
+        // STATE MANAGEMENT
+        let currentCategory = 'all';
+        let cart = [];
+        let selectedSize = 'M';
+        let heroDismissed = false;
+
+        // INITIALIZATION
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            
+            // Listen for user scroll to automatically dismiss hero overlay
+            window.addEventListener('scroll', handleHeroScroll, { passive: true });
+        });
+
+        // 1. HERO OVERLAY DISMISSAL
+        function dismissHero() {
+            const hero = document.getElementById('hero-cover');
+            if (hero && !heroDismissed) {
+                hero.classList.add('hero-hidden');
+                heroDismissed = true;
+                // Allow normal body scrolling behavior
+            }
+        }
+
+        function handleHeroScroll() {
+            if (window.scrollY > 40 && !heroDismissed) {
+                dismissHero();
+            }
+        }
+
+        // 2. PRODUCT RENDERING & FILTERING
+        function renderProducts() {
+            const container = document.getElementById('products-grid');
+            const filtered = currentCategory === 'all' 
+                ? products 
+                : products.filter(p => p.category === currentCategory);
+
+            container.innerHTML = filtered.map(product => `
+                <div class="group glass-card border border-white/10 rounded-xl overflow-hidden hover:border-white/40 transition-all duration-500 gold-border-glow flex flex-col justify-between">
+                    <div class="relative aspect-[3/4] overflow-hidden bg-neutral-900 cursor-pointer" onclick="openQuickView(${product.id})">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out filter grayscale hover:grayscale-0">
+                        
+                        <!-- Quick View Overlay Button -->
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <span class="bg-white text-black text-[10px] tracking-[0.2em] uppercase font-bold px-4 py-2 hover:bg-gold transition-colors">
+                                Vista Rápida
+                            </span>
+                        </div>
+
+                        <!-- Tag -->
+                        <span class="absolute top-3 left-3 bg-black/80 backdrop-blur-md border border-white/20 text-[9px] uppercase tracking-widest px-2.5 py-1 text-gold">
+                            ${product.category}
+                        </span>
+                    </div>
+
+                    <div class="p-5 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-serif text-lg font-semibold tracking-wide text-white mb-1 group-hover:text-gold transition-colors cursor-pointer" onclick="openQuickView(${product.id})">
+                                ${product.name}
+                            </h3>
+                            <p class="text-xs text-gray-400 font-light line-clamp-2 mb-4 leading-relaxed">
+                                ${product.description}
+                            </p>
+                        </div>
+
+                        <div class="flex items-center justify-between border-t border-white/10 pt-4">
+                            <span class="font-serif text-base font-bold text-white">€${product.price}</span>
+                            <button onclick="addToCart(${product.id})" class="text-xs uppercase tracking-wider font-semibold border border-white/30 px-3 py-2 hover:border-white hover:bg-white hover:text-black transition-all duration-300 flex items-center gap-1">
+                                <i class="ph ph-plus"></i> Añadir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function setCategory(category) {
+            currentCategory = category;
+
+            // Update filter buttons styling
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-black');
+                btn.classList.add('border-white/20', 'text-gray-300');
+            });
+
+            const activeBtn = document.getElementById(`btn-${category}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('border-white/20', 'text-gray-300');
+                activeBtn.classList.add('bg-white', 'text-black');
+            }
+
+            renderProducts();
+        }
+
+        // 3. QUICK VIEW MODAL
+        let currentQvProductId = null;
+
+        function openQuickView(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            currentQvProductId = productId;
+            document.getElementById('qv-image').src = product.image;
+            document.getElementById('qv-title').innerText = product.name;
+            document.getElementById('qv-category').innerText = product.category;
+            document.getElementById('qv-price').innerText = `€${product.price}`;
+            document.getElementById('qv-description').innerText = product.description;
+
+            const modal = document.getElementById('quickview-modal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            
+            // Set Add button handler
+            document.getElementById('qv-add-btn').onclick = () => {
+                addToCart(product.id, selectedSize);
+                closeQuickView();
+            };
+        }
+
+        function closeQuickView() {
+            const modal = document.getElementById('quickview-modal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        function selectSize(btnElement) {
+            document.querySelectorAll('.size-btn').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-black', 'font-bold');
+                btn.classList.add('border-white/20');
+            });
+            btnElement.classList.add('bg-white', 'text-black', 'font-bold');
+            selectedSize = btnElement.innerText;
+        }
+
+        // 4. CART SYSTEM
+        function addToCart(productId, size = 'M') {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const existingIndex = cart.findIndex(item => item.id === productId && item.size === size);
+            if (existingIndex > -1) {
+                cart[existingIndex].quantity += 1;
+            } else {
+                cart.push({ ...product, size, quantity: 1 });
+            }
+
+            updateCartUI();
+            toggleCart(true); // Open cart to confirm addition
+        }
+
+        function updateCartQuantity(index, delta) {
+            cart[index].quantity += delta;
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartCountLabel = document.getElementById('cart-count');
+            const subtotalLabel = document.getElementById('cart-subtotal');
+
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            cartCountLabel.innerText = totalItems;
+            subtotalLabel.innerText = `€${subtotal.toLocaleString()}`;
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="text-center py-12 text-gray-500">
+                        <i class="ph ph-shopping-bag text-4xl mb-2 opacity-40"></i>
+                        <p class="text-xs uppercase tracking-widest font-light">Tu cesta está vacía</p>
+                    </div>
+                `;
+                return;
+            }
+
+            cartItemsContainer.innerHTML = cart.map((item, index) => `
+                <div class="flex gap-4 border-b border-white/10 pb-4 items-center">
+                    <img src="${item.image}" alt="${item.name}" class="w-16 h-20 object-cover rounded bg-neutral-900">
+                    <div class="flex-1">
+                        <h4 class="font-serif text-sm font-semibold">${item.name}</h4>
+                        <span class="text-[10px] text-gray-400 block mb-1 uppercase tracking-wider">Talla: ${item.size}</span>
+                        <span class="text-xs font-bold text-white">€${item.price}</span>
+                    </div>
+                    <div class="flex items-center border border-white/20">
+                        <button onclick="updateCartQuantity(${index}, -1)" class="px-2 py-1 text-xs hover:bg-white/10">-</button>
+                        <span class="px-2 text-xs font-bold">${item.quantity}</span>
+                        <button onclick="updateCartQuantity(${index}, 1)" class="px-2 py-1 text-xs hover:bg-white/10">+</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleCart(forceOpen = false) {
+            const drawer = document.getElementById('cart-drawer');
+            const panel = document.getElementById('cart-panel');
+
+            if (forceOpen || drawer.classList.contains('opacity-0')) {
+                drawer.classList.remove('opacity-0', 'pointer-events-none');
+                panel.classList.remove('translate-x-full');
+            } else {
+                drawer.classList.add('opacity-0', 'pointer-events-none');
+                panel.classList.add('translate-x-full');
+            }
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alertCustom('Tu cesta está vacía. Añade alguna prenda antes de pagar.');
+                return;
+            }
+            alertCustom('¡Gracias por tu interés! Redirigiendo a la pasarela de pago segura de BLACK & WHITE...');
+        }
+
+        // 5. SEARCH & UI UTILITIES
+        function toggleSearchModal() {
+            const modal = document.getElementById('search-modal');
+            if (modal.classList.contains('opacity-0')) {
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                document.getElementById('search-input').focus();
+            } else {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        function handleSearch() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const resultsContainer = document.getElementById('search-results');
+
+            if (!query.trim()) {
+                resultsContainer.innerHTML = '';
+                return;
+            }
+
+            const matched = products.filter(p => 
+                p.name.toLowerCase().includes(query) || 
+                p.description.toLowerCase().includes(query) ||
+                p.category.toLowerCase().includes(query)
+            );
+
+            if (matched.length === 0) {
+                resultsContainer.innerHTML = '<p class="text-xs text-gray-400 py-2">No se encontraron prendas.</p>';
+                return;
+            }
+
+            resultsContainer.innerHTML = matched.map(p => `
+                <div onclick="openQuickView(${p.id}); toggleSearchModal()" class="flex items-center gap-3 p-2 hover:bg-white/10 rounded cursor-pointer">
+                    <img src="${p.image}" class="w-10 h-12 object-cover rounded">
+                    <div>
+                        <h5 class="text-xs font-semibold text-white">${p.name}</h5>
+                        <span class="text-[10px] text-gold">€${p.price}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function subscribeNewsletter(e) {
+            e.preventDefault();
+            alertCustom('Te has suscrito correctamente a la selección exclusiva de BLACK & WHITE.');
+            e.target.reset();
+        }
+
+        // Custom Minimalist Alert Box replacement
+        function alertCustom(message) {
+            const box = document.createElement('div');
+            box.className = 'fixed bottom-6 right-6 z-50 bg-white text-black font-semibold text-xs uppercase tracking-widest px-6 py-4 shadow-2xl border border-black animate-bounce';
+            box.innerText = message;
+            document.body.appendChild(box);
+            setTimeout(() => box.remove(), 4000);
+        }
+    </script>
+</body>
 </html>
