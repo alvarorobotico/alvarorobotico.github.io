@@ -1,819 +1,848 @@
-<!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<!doctype html>
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLACK AND WHITE | Exclusive Menswear</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Phosphor Icons -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800;900&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        serif: ['Cinzel', 'serif'],
-                        sans: ['Montserrat', 'sans-serif'],
-                    },
-                    colors: {
-                        gold: '#D4AF37',
-                        darkBg: '#0a0a0a',
-                        cardBg: '#121212',
-                        accentGray: '#1f1f1f',
-                        lightGray: '#888888',
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'float': 'float 4s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-8px)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0a0a0a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Black &amp; White · Moda en Guadix</title>
+<meta name="description" content="Black & White: moda mujer y hombre en Guadix, Granada. Novedades cada semana en tienda y online.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: blanco y negro literal. Un wordmark gigante que invierte las fotos que tiene detrás,
+   rejilla de producto limpia, una sola banda negra (Hombre) como contrapunto. */
+:root{
+  --ink:#111110;
+  --paper:#ffffff;
+  --stone:#efefec;
+  --line:#dededa;
+  --muted:#686862;
+  --soft:#f7f7f5;
+  --display:"Bodoni Moda","Bodoni 72",Didot,Georgia,serif;
+  --sans:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --gl:max(clamp(16px,3.2vw,44px),env(safe-area-inset-left,0px));
+  --gr:max(clamp(16px,3.2vw,44px),env(safe-area-inset-right,0px));
+  --ease:cubic-bezier(.2,.7,.2,1);
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 15px/1.55 var(--sans);overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+[hidden]{display:none!important}
+.wrap{max-width:1480px;margin-inline:auto;padding-left:var(--gl);padding-right:var(--gr)}
+section[id]{scroll-margin-top:calc(72px + env(safe-area-inset-top,0px))}
+.label{font:500 11px/1.2 var(--mono);letter-spacing:.14em;text-transform:uppercase}
+h1,h2,h3{text-wrap:balance;margin:0}
+.h2{font:500 clamp(34px,4.6vw,64px)/1 var(--display);letter-spacing:-.015em}
+.h2 em{font-style:italic;font-weight:400}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:50px;padding:0 26px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);font:500 13px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;transition:background .25s,color .25s}
+.btn:hover{background:var(--paper);color:var(--ink)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--paper)}
+.arrow{transition:transform .3s var(--ease)}
+a:hover .arrow,button:hover .arrow{transform:translateX(4px)}
+.ico{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 
-        /* Intro Screen / Curtain Scroll Animation styles */
-        #hero-cover {
-            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
-            will-change: transform, opacity;
-        }
-        
-        .hero-hidden {
-            transform: translateY(-100%);
-            opacity: 0;
-            pointer-events: none;
-        }
+/* ---------- Barra superior ---------- */
+.topbar{background:var(--ink);color:var(--paper);overflow:hidden;height:36px;display:flex;align-items:center}
+.marquee{display:flex;width:max-content;animation:slide 38s linear infinite}
+.marquee span{font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;padding:0 28px;white-space:nowrap;display:flex;align-items:center;gap:28px}
+.marquee span::after{content:"";width:5px;height:5px;border-radius:50%;background:currentColor}
+@keyframes slide{to{transform:translateX(-50%)}}
 
-        /* Subtle Luxury Gradients & Borders */
-        .gold-border-glow:hover {
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.15);
-        }
+/* ---------- Cabecera ---------- */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--paper);z-index:60}
+.header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--paper);border-bottom:1px solid var(--line)}
+.header .wrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:72px}
+.nav{display:flex;gap:30px;height:100%}
+.nav > li{list-style:none;display:flex;align-items:center}
+.nav{margin:0;padding:0}
+.nav > li > a{font:500 13px/1 var(--sans);letter-spacing:.09em;text-transform:uppercase;position:relative;padding:6px 0}
+.nav > li > a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.nav > li:hover > a::after,.nav > li:focus-within > a::after{transform:scaleX(1)}
+.logo{font:500 26px/1 var(--display);letter-spacing:-.01em;white-space:nowrap}
+.logo em{font-style:italic;font-weight:400}
+.tools{display:flex;justify-content:flex-end;gap:6px}
+.tool{width:42px;height:42px;display:grid;place-items:center;position:relative;border-radius:50%;transition:background .2s}
+.tool:hover{background:var(--stone)}
+.count{position:absolute;top:4px;right:3px;min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:var(--ink);color:var(--paper);font:500 10px/17px var(--mono);text-align:center}
+.count.bump{animation:bump .4s var(--ease)}
+@keyframes bump{50%{transform:scale(1.35)}}
+.burger{display:none}
 
-        .text-glow {
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-        }
+.mega{position:absolute;left:0;right:0;top:100%;background:var(--paper);border-bottom:1px solid var(--line);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .25s,transform .25s var(--ease),visibility .25s}
+.nav > li:hover .mega,.nav > li:focus-within .mega{opacity:1;visibility:visible;transform:none}
+.mega .wrap{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:48px;height:auto;padding-block:36px 44px;align-items:start}
+.mega h4{margin:0 0 16px}
+.mega ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.mega ul a{font:400 22px/1.15 var(--display);transition:opacity .2s}
+.mega ul:hover a{opacity:.4}
+.mega ul a:hover{opacity:1}
+.mega figure{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mega figure img{aspect-ratio:3/4;object-fit:cover;background:var(--stone)}
+.mega figcaption{grid-column:1/-1;font-size:13px;color:var(--muted)}
 
-        .glass-nav {
-            background: rgba(10, 10, 10, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-        }
+.searchbar{border-top:1px solid var(--line);background:var(--paper)}
+.searchbar .wrap{display:flex;align-items:center;gap:14px;height:64px}
+.searchbar input{flex:1;min-width:0;border:0;outline:0;font:400 24px/1 var(--display);background:transparent}
+.searchbar input::placeholder{color:#a3a39d}
 
-        .glass-card {
-            background: rgba(18, 18, 18, 0.7);
-            backdrop-filter: blur(8px);
-        }
-    </style>
+/* ---------- Hero ---------- */
+.hero{padding-top:clamp(20px,3vw,36px)}
+.hero-meta{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+.hero-meta a{display:inline-flex;gap:8px;align-items:center}
+.wordmark{position:relative;z-index:2;color:#fff;mix-blend-mode:difference;font:500 clamp(46px,14.6vw,236px)/.82 var(--display);letter-spacing:-.035em;white-space:nowrap;margin:clamp(10px,1.4vw,22px) 0 calc(-0.3em);display:flex;justify-content:space-between;pointer-events:none}
+.wordmark em{font-style:italic;font-weight:400;letter-spacing:0}
+.trip{display:grid;grid-template-columns:630fr 570fr 690fr;gap:clamp(6px,.8vw,12px);align-items:start}
+.panel{position:relative;background:var(--stone) url("img/hero.png") no-repeat;overflow:hidden}
+.p1{aspect-ratio:630/790;background-size:304.76% auto;background-position:0 0}
+.p2{aspect-ratio:570/790;background-size:336.84% auto;background-position:47.41% 0}
+.p3{aspect-ratio:690/790;background-size:278.26% auto;background-position:100% 0}
+.panel a{position:absolute;inset:0}
+.panel .cap{position:absolute;left:14px;bottom:14px;right:14px;display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--paper);padding:10px 14px;font:500 13px/1.25 var(--sans);transform:translateY(calc(100% + 14px));transition:transform .45s var(--ease)}
+.panel:hover .cap,.panel:focus-within .cap{transform:none}
+.hero-foot{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:end;padding-block:clamp(24px,3vw,40px) clamp(48px,6vw,88px)}
+.hero-foot p{margin:0;font:400 clamp(20px,2vw,28px)/1.3 var(--display);max-width:30ch}
+.hero-foot .ctas{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+
+/* ---------- Ventajas ---------- */
+.perks{border-block:1px solid var(--line)}
+.perks .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+.perk{display:flex;gap:14px;align-items:flex-start;padding:22px 20px;border-left:1px solid var(--line)}
+.perk:first-child{border-left:0;padding-left:0}
+.perk b{display:block;font-weight:600;font-size:14px}
+.perk span{font-size:13px;color:var(--muted)}
+.perk .ico{flex:none;margin-top:2px}
+
+/* ---------- Secciones ---------- */
+.section{padding-block:clamp(60px,8vw,120px)}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:clamp(26px,3vw,44px)}
+.sec-head .label{display:block;margin-bottom:14px;color:var(--muted)}
+.more{display:inline-flex;gap:8px;align-items:center;font:500 13px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid currentColor;padding-bottom:6px}
+
+/* Categorías */
+.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(8px,1vw,16px)}
+.cat{position:relative;display:block;overflow:hidden}
+.cat img{width:100%;aspect-ratio:3/4;object-fit:cover;background:var(--stone);transition:transform 1s var(--ease)}
+.cat:hover img{transform:scale(1.045)}
+.cat .tag{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;padding:18px;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.45))}
+.cat .tag strong{font:500 clamp(24px,2.4vw,36px)/1 var(--display)}
+.cat .tag span{width:40px;height:40px;border:1px solid rgba(255,255,255,.7);border-radius:50%;display:grid;place-items:center;transition:background .3s,color .3s}
+.cat:hover .tag span{background:#fff;color:var(--ink)}
+
+/* Filtros */
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{height:38px;padding:0 16px;border:1px solid var(--line);border-radius:19px;font-size:13px;display:inline-flex;align-items:center;gap:8px;transition:border-color .2s,background .2s,color .2s}
+.chip:hover{border-color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.chip small{font:500 11px/1 var(--mono);opacity:.6}
+
+/* Producto */
+.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(28px,3vw,44px) clamp(10px,1.2vw,18px)}
+.card{position:relative;min-width:0;animation:rise .5s var(--ease) both}
+@keyframes rise{from{opacity:.001;transform:translateY(10px)}}
+.frame{position:relative;overflow:hidden}
+.media{position:relative;display:block;aspect-ratio:2/3;overflow:hidden;background:var(--stone)}
+.media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .5s,transform 1.2s var(--ease)}
+.media img.b{opacity:0}
+.card:hover .media img.b{opacity:1}
+.card:hover .media img{transform:scale(1.03)}
+.badge{position:absolute;top:12px;left:12px;background:var(--paper);color:var(--ink);padding:5px 8px 4px;font:500 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase}
+.fav{position:absolute;top:8px;right:8px;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.85);transition:transform .2s}
+.fav:hover{transform:scale(1.08)}
+.fav .ico{width:18px;height:18px}
+.fav[aria-pressed="true"] .ico{fill:var(--ink)}
+.quick{position:absolute;left:8px;right:8px;bottom:8px;background:var(--paper);padding:10px 10px 8px;transform:translateY(calc(100% + 10px));transition:transform .4s var(--ease)}
+.card:hover .quick,.card:focus-within .quick{transform:none}
+.quick .label{display:block;font-size:10px;color:var(--muted);margin-bottom:8px}
+.sizes{display:flex;gap:4px}
+.sizes button{flex:1;height:32px;border:1px solid var(--line);font:500 11px/1 var(--mono);transition:background .15s,color .15s,border-color .15s}
+.sizes button:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.info{padding-top:14px;display:grid;gap:4px}
+.info h3{font:500 14px/1.3 var(--sans);text-wrap:pretty}
+.info h3 a:hover{text-decoration:underline;text-underline-offset:3px}
+.info p{margin:0;font-size:13px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.price{font:500 13px/1 var(--mono);margin-top:6px;font-variant-numeric:tabular-nums}
+.empty{grid-column:1/-1;padding:40px 0;color:var(--muted)}
+
+/* Conjunto */
+.look{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(28px,5vw,88px);align-items:center}
+.look-img{position:relative}
+.look-img{max-width:620px;width:100%;justify-self:center}
+.look-img img{width:100%;aspect-ratio:2/3;object-fit:cover;background:var(--stone)}
+.look-img .pin{position:absolute;width:30px;height:30px;border-radius:50%;background:var(--paper);display:grid;place-items:center;font:500 11px/1 var(--mono);box-shadow:0 0 0 6px rgba(255,255,255,.35)}
+.look-txt p.lead{font:400 clamp(18px,1.6vw,22px)/1.45 var(--display);max-width:38ch;margin:18px 0 30px}
+.items{border-top:1px solid var(--line)}
+.item{display:grid;grid-template-columns:auto 64px 1fr auto;gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}
+.item img{width:64px;aspect-ratio:2/3;object-fit:cover}
+.item .n{font-weight:600;font-size:14px;display:flex;gap:8px;align-items:center}
+.item .n i{font:500 10px/1 var(--mono);font-style:normal;width:20px;height:20px;border:1px solid var(--ink);border-radius:50%;display:grid;place-items:center}
+.item select{margin-top:6px;height:32px;border:1px solid var(--line);background:var(--paper);padding:0 8px;font-size:13px}
+.check{width:20px;height:20px;accent-color:var(--ink)}
+.total{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:24px}
+.total strong{font:500 26px/1 var(--display)}
+
+/* Hombre (banda negra) */
+.dark{background:var(--ink);color:var(--paper)}
+.dark .chip{border-color:#3a3a37;color:var(--paper)}
+.dark .chip:hover{border-color:var(--paper)}
+.dark .sec-head .label{color:#9b9b95}
+.men{display:grid;grid-template-columns:1fr 2.4fr;gap:clamp(28px,4vw,64px);align-items:start}
+.men-intro p{color:#b9b9b3;max-width:36ch;margin:18px 0 26px}
+.men-intro .chips{margin-top:8px}
+.men .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.dark .media{background:#222220}
+.dark .info p{color:#9b9b95}
+.dark .quick{background:var(--ink)}
+.dark .sizes button{border-color:#3a3a37}
+.dark .sizes button:hover{background:var(--paper);color:var(--ink)}
+.dark .fav{background:rgba(17,17,16,.7);color:var(--paper)}
+.dark .fav[aria-pressed="true"] .ico{fill:var(--paper)}
+.dark .badge{background:var(--ink);color:var(--paper)}
+
+/* Tienda */
+.store{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line)}
+.store-txt{padding:clamp(28px,4vw,64px);display:flex;flex-direction:column;gap:28px;justify-content:space-between}
+.store-txt address{font:400 clamp(24px,2.6vw,36px)/1.15 var(--display);font-style:normal}
+.store dl{display:grid;grid-template-columns:auto 1fr;gap:12px 24px;margin:0}
+.store dt{color:var(--muted)}
+.store dt.label{padding-top:4px}
+.store dd{margin:0;font-size:16px;user-select:all;overflow-wrap:anywhere}
+.store .ctas{display:flex;gap:10px;flex-wrap:wrap}
+.store-img{min-height:420px;background:var(--stone) url("img/hero.png") no-repeat;background-size:336.84% auto;background-position:47.41% 18%}
+
+/* Newsletter */
+.news{text-align:left;display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,64px);align-items:end}
+.news > div{min-width:0}
+.news form{display:flex;border-bottom:1px solid var(--ink)}
+.news input{flex:1;min-width:0;width:100%;border:0;outline:0;background:transparent;height:60px;font:400 clamp(18px,1.8vw,24px)/1 var(--display)}
+.news button{display:flex;align-items:center;gap:10px;font:500 13px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;padding-left:16px}
+.news .note{font-size:12px;color:var(--muted);margin-top:12px}
+.news .ok{font:400 20px/1.3 var(--display);padding-block:16px;border-bottom:1px solid var(--ink)}
+
+/* Footer */
+footer{background:var(--ink);color:var(--paper);padding-block:clamp(56px,7vw,96px) 28px;padding-bottom:calc(28px + env(safe-area-inset-bottom,0px))}
+.foot{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:40px}
+.foot .logo{font-size:40px}
+.foot p{color:#a5a59f;max-width:34ch;font-size:14px}
+.foot h4{margin:0 0 16px;color:#8d8d87}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;font-size:14px}
+.foot ul a:hover{text-decoration:underline;text-underline-offset:3px}
+.social{display:flex;gap:8px;margin-top:22px}
+.social a{width:42px;height:42px;border:1px solid #3a3a37;border-radius:50%;display:grid;place-items:center;transition:background .2s,color .2s}
+.social a:hover{background:var(--paper);color:var(--ink)}
+.social .ico{width:18px;height:18px}
+.legal{margin-top:64px;padding-top:22px;border-top:1px solid #2c2c2a;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px;color:#8d8d87}
+.legal nav{display:flex;gap:18px;flex-wrap:wrap}
+.legal a:hover{color:var(--paper)}
+.bigword{font:500 clamp(44px,14.2vw,232px)/.8 var(--display);letter-spacing:-.04em;color:#1e1e1c;white-space:nowrap;margin-top:48px;overflow:hidden;display:flex;justify-content:space-between}
+.bigword em{font-style:italic;font-weight:400}
+
+/* Cesta / menú (paneles) */
+.scrim{position:fixed;inset:0;background:rgba(17,17,16,.42);z-index:80;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+.scrim.on{opacity:1;visibility:visible}
+.drawer{position:fixed;top:0;bottom:0;right:0;width:min(440px,100%);background:var(--paper);z-index:90;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .45s var(--ease);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-right:env(safe-area-inset-right,0px)}
+.drawer.left{right:auto;left:0;transform:translateX(-100%);padding-right:0;padding-left:env(safe-area-inset-left,0px)}
+.drawer.on{transform:none}
+.d-head{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid var(--line)}
+.d-head h2{font:500 26px/1 var(--display)}
+.d-body{flex:1;overflow-y:auto;padding:8px 24px}
+.d-foot{padding:20px 24px;border-top:1px solid var(--line);display:grid;gap:14px}
+.d-foot .row{display:flex;justify-content:space-between;font-size:15px}
+.d-foot .row strong{font:500 16px/1 var(--mono)}
+.d-foot small{color:var(--muted);font-size:12px}
+.line{display:grid;grid-template-columns:72px 1fr auto;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+.line img{width:72px;aspect-ratio:2/3;object-fit:cover;background:var(--stone)}
+.line h3{font:600 13px/1.3 var(--sans)}
+.line .meta{font:400 12px/1.4 var(--mono);color:var(--muted);margin-top:4px}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line);margin-top:10px}
+.qty button{width:30px;height:30px}
+.qty span{min-width:22px;text-align:center;font:500 12px/1 var(--mono)}
+.line .rm{font-size:12px;color:var(--muted);text-decoration:underline;align-self:start}
+.line .lp{font:500 13px/1 var(--mono);text-align:right}
+.d-empty{padding:48px 0;text-align:center;color:var(--muted)}
+.d-empty p{font:400 22px/1.3 var(--display);color:var(--ink);margin:0 0 8px}
+.mnav{list-style:none;margin:0;padding:0}
+.mnav > li{border-bottom:1px solid var(--line)}
+.mnav > li > a,.mnav summary{display:flex;justify-content:space-between;align-items:center;padding:18px 0;font:500 26px/1 var(--display);cursor:pointer;list-style:none}
+.mnav summary::-webkit-details-marker{display:none}
+.mnav details[open] summary .plus{transform:rotate(45deg)}
+.plus{transition:transform .3s;font:300 26px/1 var(--sans)}
+.mnav details ul{list-style:none;margin:0 0 16px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mnav details ul a{font-size:15px;color:var(--muted)}
+
+/* Avisos */
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,140%);background:var(--ink);color:var(--paper);padding:14px 20px;z-index:100;font-size:14px;display:flex;gap:16px;align-items:center;transition:transform .45s var(--ease),visibility .45s;max-width:calc(100% - 32px);visibility:hidden}
+.toast.on{transform:translate(-50%,0);visibility:visible}
+.toast button{text-decoration:underline;font-size:13px;white-space:nowrap}
+.wa{position:fixed;right:calc(20px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:70;width:56px;height:56px;border-radius:50%;background:#25d366;color:#fff;display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.18);transition:transform .25s var(--ease)}
+.wa:hover{transform:scale(1.07)}
+.wa svg{width:28px;height:28px;fill:#fff}
+.cookies{position:fixed;left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:75;width:min(380px,calc(100% - 104px));background:var(--paper);border:1px solid var(--ink);padding:18px;font-size:13px;display:grid;gap:12px}
+.cookies p{margin:0}
+.cookies a{text-decoration:underline}
+.cookies div{display:flex;gap:8px}
+.cookies button{flex:1;height:38px;border:1px solid var(--ink);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.cookies button.yes{background:var(--ink);color:var(--paper)}
+
+/* ---------- Responsive ---------- */
+@media (max-width:1200px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:1024px){
+  .nav{display:none}.burger{display:grid}
+  .header .wrap{grid-template-columns:auto 1fr auto;gap:8px}
+  .header .logo{justify-self:center}
+  .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .men{grid-template-columns:1fr}
+  .perks .wrap{grid-template-columns:repeat(2,1fr)}
+  .perk:nth-child(3){border-left:0;padding-left:0}
+  .perk:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .foot{grid-template-columns:1fr 1fr}
+  .foot > div:first-child{grid-column:1/-1}
+}
+@media (max-width:820px){
+  .hero-foot,.look,.store,.news{grid-template-columns:1fr}
+  .hero-foot .ctas{justify-content:flex-start}
+  .cats{grid-template-columns:repeat(2,1fr)}
+  .store-img{min-height:360px;order:-1}
+}
+@media (max-width:640px){
+  body{font-size:14px}
+  .header .wrap{height:60px}
+  .logo{font-size:22px}
+  .tool{width:38px;height:38px}
+  .tool.hide-sm{display:none}
+  .trip{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin-right:calc(-1 * var(--gr));padding-right:var(--gr);scrollbar-width:none}
+  .trip::-webkit-scrollbar{display:none}
+  .panel{flex:none;height:min(118vw,480px);scroll-snap-align:start}
+  .panel .cap{transform:none}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .men .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .men .grid .card:nth-child(3){display:none}
+  .cat .tag{padding:12px}
+  .cat .tag strong{font-size:22px}
+  .cat .tag span{display:none}
+  .perks .wrap{grid-template-columns:1fr}
+  .perk{border-left:0!important;padding-left:0!important;border-bottom:1px solid var(--line)}
+  .perk:last-child{border-bottom:0}
+  .item{grid-template-columns:auto 56px 1fr;}
+  .item img{width:56px}
+  .item .price{grid-column:3}
+  .foot{grid-template-columns:1fr}
+  .total .btn{width:100%}
+}
+@media (hover:none){
+  .quick{position:static;transform:none;padding:8px 0 0;background:transparent}
+  .dark .quick{background:transparent}
+  .quick .label{display:none}
+  .media img.b{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
 </head>
-<body class="bg-darkBg text-white font-sans antialiased selection:bg-white selection:text-black overflow-x-hidden">
+<body>
 
-    <!-- ========================================== -->
-    <!-- 1. INTRO / HERO COVER OVERLAY (PANTALLA DE BIENVENIDA) -->
-    <!-- ========================================== -->
-    <div id="hero-cover" class="fixed inset-0 z-50 flex flex-col justify-between items-center bg-black text-white p-6 sm:p-12 overflow-hidden">
-        <!-- Background Overlay Image with Dark Vignette -->
-        <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2000&auto=format&fit=crop" 
-                 alt="Black and White Fashion Editorial" 
-                 class="w-full h-full object-cover object-center opacity-35 filter grayscale contrast-125 scale-105 transition-transform duration-10000 ease-out" 
-                 id="hero-bg-img">
-            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/80"></div>
-        </div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-9-9.5C2 7 4.3 4 7.5 4c2 0 3.4 1 4.5 2.6C13.1 5 14.5 4 16.5 4 19.7 4 22 7 21 10.5 19.5 15.4 12 20 12 20Z"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 8h14l-1 13H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h12"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M2 6h12v10H2zM14 10h4l3 3v3h-7"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></symbol>
+  <symbol id="i-return" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 19.5 5.3 16A8 8 0 1 1 8 18.7L4 19.5Z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></symbol>
+  <symbol id="i-tt" viewBox="0 0 24 24"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.5 2.8 2.3 4.5 5 4.8"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8Z"/></symbol>
+</svg>
 
-        <!-- Header Minimalist Info -->
-        <div class="relative z-10 w-full flex justify-between items-center max-w-7xl mx-auto border-b border-white/10 pb-4">
-            <span class="text-xs tracking-[0.4em] uppercase font-light text-gray-400">Colección Alta Costura 2026</span>
-            <span class="text-xs tracking-[0.3em] font-serif text-gold">EDICIÓN LIMITADA</span>
-        </div>
+<div class="topbar" aria-label="Avisos">
+  <div class="marquee" aria-hidden="false">
+    <span>Novedades cada semana</span><span>Tienda en Av. Obispo Medina Olmos, 56 · Guadix</span><span>Pide por WhatsApp · +34 647 15 50 93</span><span>Moda mujer y hombre</span>
+    <span aria-hidden="true">Novedades cada semana</span><span aria-hidden="true">Tienda en Av. Obispo Medina Olmos, 56 · Guadix</span><span aria-hidden="true">Pide por WhatsApp · +34 647 15 50 93</span><span aria-hidden="true">Moda mujer y hombre</span>
+  </div>
+</div>
 
-        <!-- Central Main Typography -->
-        <div class="relative z-10 text-center max-w-4xl my-auto py-12 px-4 flex flex-col items-center">
-            <p class="text-xs sm:text-sm tracking-[0.6em] text-gray-400 uppercase mb-4 font-light animate-pulse-slow">
-                MASCULINIDAD ELEGANTE Y ÚNICA
-            </p>
-            <h1 class="font-serif text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tighter uppercase mb-6 text-glow leading-none">
-                BLACK<span class="font-light italic text-gray-400">&</span>WHITE
-            </h1>
-            <p class="text-sm sm:text-lg text-gray-300 font-light max-w-xl mx-auto leading-relaxed mb-8 tracking-wide">
-                Arquitectura textil para el hombre contemporáneo. Piezas de autor, cortes impecables y sobriedad atemporal.
-            </p>
-
-            <button id="enter-btn" onclick="dismissHero()" class="group relative inline-flex items-center justify-center px-8 py-4 overflow-hidden font-medium tracking-widest text-xs uppercase border border-white/30 rounded-none transition duration-500 ease-out hover:border-white">
-                <span class="absolute inset-0 w-full h-full bg-white transition-all duration-500 ease-out transform -translate-x-full group-hover:translate-x-0 group-hover:bg-white"></span>
-                <span class="relative z-10 text-white group-hover:text-black transition-colors duration-500 flex items-center gap-3">
-                    EXPLORAR COLECCIÓN <i class="ph ph-arrow-down text-base group-hover:translate-y-1 transition-transform"></i>
-                </span>
-            </button>
-        </div>
-
-        <!-- Scroll Indicator Footer -->
-        <div class="relative z-10 flex flex-col items-center gap-2 cursor-pointer" onclick="dismissHero()">
-            <span class="text-[10px] tracking-[0.3em] uppercase text-gray-400 font-light">Desliza para entrar</span>
-            <div class="w-5 h-9 border border-white/30 rounded-full flex justify-center p-1">
-                <div class="w-1 h-2 bg-white rounded-full animate-bounce"></div>
-            </div>
-        </div>
+<header class="header" id="top">
+  <div class="wrap">
+    <button class="tool burger" id="openMenu" aria-label="Abrir menú"><svg class="ico"><use href="#i-menu"/></svg></button>
+    <ul class="nav">
+      <li><a href="https://bwshops.com/es/97-novedades">Novedades</a></li>
+      <li><a href="#mujer">Mujer</a>
+        <div class="mega"><div class="wrap">
+          <div><h4 class="label">Ropa</h4><ul>
+            <li><a href="https://bwshops.com/es/59-vestidos">Vestidos</a></li>
+            <li><a href="https://bwshops.com/es/58-camisetas-tops">Camisetas y tops</a></li>
+            <li><a href="https://bwshops.com/es/55-camisas">Camisas</a></li>
+            <li><a href="https://bwshops.com/es/93-pantalones">Pantalones</a></li>
+            <li><a href="https://bwshops.com/es/94-jeans">Jeans</a></li>
+            <li><a href="https://bwshops.com/es/95-monos">Monos</a></li>
+          </ul></div>
+          <div><h4 class="label">Más</h4><ul>
+            <li><a href="https://bwshops.com/es/90-faldas">Faldas</a></li>
+            <li><a href="https://bwshops.com/es/60-chaquetas">Chaquetas</a></li>
+            <li><a href="https://bwshops.com/es/56-jerseys">Jerseys</a></li>
+            <li><a href="https://bwshops.com/es/57-sudaderas">Sudaderas</a></li>
+            <li><a href="https://bwshops.com/es/61-calzado">Calzado</a></li>
+            <li><a href="https://bwshops.com/es/62-complementos">Complementos</a></li>
+          </ul></div>
+          <figure><img src="img/4669.jpg" alt="Vestido midi estampado" loading="lazy"><img src="img/4651.jpg" alt="Vestido satinado vivos contraste" loading="lazy"><figcaption>Vestidos nuevos esta semana, desde 54,99 €</figcaption></figure>
+        </div></div>
+      </li>
+      <li><a href="#hombre">Hombre</a>
+        <div class="mega"><div class="wrap">
+          <div><h4 class="label">Arriba</h4><ul>
+            <li><a href="https://bwshops.com/es/77-chaquetas">Chaquetas</a></li>
+            <li><a href="https://bwshops.com/es/74-camisas">Camisas</a></li>
+            <li><a href="https://bwshops.com/es/76-polos">Polos</a></li>
+            <li><a href="https://bwshops.com/es/98-jerseys">Jerseys</a></li>
+            <li><a href="https://bwshops.com/es/65-sudaderas">Sudaderas</a></li>
+            <li><a href="https://bwshops.com/es/75-camisetas">Camisetas</a></li>
+          </ul></div>
+          <div><h4 class="label">Abajo</h4><ul>
+            <li><a href="https://bwshops.com/es/69-pantalones">Pantalones</a></li>
+            <li><a href="https://bwshops.com/es/88-jeans">Jeans</a></li>
+          </ul></div>
+          <figure><img src="img/4045.jpg" alt="Chaqueta JJ Rebel" loading="lazy"><img src="img/3997.jpg" alt="Camisa Only &amp; Sons" loading="lazy"><figcaption>Jack &amp; Jones, Only &amp; Sons y más</figcaption></figure>
+        </div></div>
+      </li>
+      <li><a href="https://bwshops.com/es/61-calzado">Calzado</a></li>
+      <li><a href="https://bwshops.com/es/62-complementos">Complementos</a></li>
+    </ul>
+    <a class="logo" href="#top" aria-label="Black &amp; White, inicio">Black <em>&amp;</em> White</a>
+    <div class="tools">
+      <button class="tool" id="openSearch" aria-label="Buscar" aria-expanded="false"><svg class="ico"><use href="#i-search"/></svg></button>
+      <a class="tool hide-sm" href="https://bwshops.com/es/mi-cuenta" aria-label="Mi cuenta"><svg class="ico"><use href="#i-user"/></svg></a>
+      <button class="tool hide-sm" id="favBtn" aria-label="Favoritos"><svg class="ico"><use href="#i-heart"/></svg><span class="count" id="favCount" hidden>0</span></button>
+      <button class="tool" id="openCart" aria-label="Cesta"><svg class="ico"><use href="#i-bag"/></svg><span class="count" id="cartCount">0</span></button>
     </div>
-
-
-    <!-- ========================================== -->
-    <!-- 2. NAVBAR FLOTANTE Y NAVEGACIÓN -->
-    <!-- ========================================== -->
-    <header class="fixed top-0 left-0 w-full z-40 glass-nav border-b border-white/10 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-8 h-20 flex items-center justify-between">
-            
-            <!-- Logo -->
-            <a href="#" class="font-serif text-xl sm:text-2xl font-bold tracking-widest uppercase flex items-center gap-1">
-                <span>BLACK</span><span class="font-light text-gray-400">&</span><span>WHITE</span>
-            </a>
-
-            <!-- Desktop Menu Links -->
-            <nav class="hidden md:flex items-center space-x-8 text-xs tracking-[0.2em] font-medium uppercase text-gray-300">
-                <a href="#catalogo" onclick="setCategory('all')" class="hover:text-white transition-colors py-2">Todos</a>
-                <a href="#catalogo" onclick="setCategory('blazers')" class="hover:text-white transition-colors py-2">Blazers</a>
-                <a href="#catalogo" onclick="setCategory('camisas')" class="hover:text-white transition-colors py-2">Camisas</a>
-                <a href="#catalogo" onclick="setCategory('abrigos')" class="hover:text-white transition-colors py-2">Abrigos</a>
-                <a href="#catalogo" onclick="setCategory('calzado')" class="hover:text-white transition-colors py-2">Calzado</a>
-            </nav>
-
-            <!-- Actions: Cart & Mobile Menu Toggle -->
-            <div class="flex items-center space-x-6">
-                <!-- Search Button (Visual enhancement) -->
-                <button onclick="toggleSearchModal()" class="text-gray-300 hover:text-white transition-colors p-1" title="Buscar">
-                    <i class="ph ph-magnifying-glass text-2xl"></i>
-                </button>
-
-                <!-- Cart Button -->
-                <button onclick="toggleCart()" class="relative text-gray-300 hover:text-white transition-colors p-1 flex items-center">
-                    <i class="ph ph-shopping-bag text-2xl"></i>
-                    <span id="cart-count" class="absolute -top-1 -right-2 bg-white text-black font-bold text-[10px] w-5 h-5 rounded-full flex items-center justify-center transition-transform scale-100">0</span>
-                </button>
-
-                <!-- Mobile Menu Icon -->
-                <button onclick="toggleMobileMenu()" class="md:hidden text-gray-300 hover:text-white focus:outline-none">
-                    <i class="ph ph-list text-2xl" id="menu-icon"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-white/10 px-6 py-6 transition-all">
-            <div class="flex flex-col space-y-4 text-xs tracking-[0.2em] uppercase font-medium">
-                <a href="#catalogo" onclick="setCategory('all'); toggleMobileMenu()" class="hover:text-gold py-1">Colección Completa</a>
-                <a href="#catalogo" onclick="setCategory('blazers'); toggleMobileMenu()" class="hover:text-gold py-1">Blazers & Trajes</a>
-                <a href="#catalogo" onclick="setCategory('camisas'); toggleMobileMenu()" class="hover:text-gold py-1">Camisas Haute Couture</a>
-                <a href="#catalogo" onclick="setCategory('abrigos'); toggleMobileMenu()" class="hover:text-gold py-1">Abrigos de Autor</a>
-                <a href="#catalogo" onclick="setCategory('calzado'); toggleMobileMenu()" class="hover:text-gold py-1">Calzado Executive</a>
-            </div>
-        </div>
-    </header>
-
-
-    <!-- ========================================== -->
-    <!-- 3. TIENDA PRINCIPAL (CONTENIDO) -->
-    <!-- ========================================== -->
-    <main class="pt-24 pb-20">
-
-        <!-- Banner Promocional de Firma -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-8 mt-6 mb-16">
-            <div class="relative rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-r from-neutral-900 to-black p-8 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8">
-                <div class="max-w-xl">
-                    <span class="text-xs uppercase tracking-[0.3em] text-gold font-semibold mb-2 block">Corte & Confección de Lujo</span>
-                    <h2 class="font-serif text-3xl md:text-5xl font-bold tracking-tight mb-4 leading-tight">
-                        Elegancia Minimalista sin Concesiones
-                    </h2>
-                    <p class="text-gray-400 text-sm md:text-base leading-relaxed mb-6 font-light">
-                        Descubre piezas confeccionadas en lana virgen, sedas italianas y pieles seleccionadas. Diseñadas para destacar con distinción sutil.
-                    </p>
-                    <a href="#catalogo" class="inline-block bg-white text-black text-xs uppercase tracking-[0.2em] font-semibold px-6 py-3 hover:bg-gold hover:text-black transition-colors">
-                        Ver Selección de Temporada
-                    </a>
-                </div>
-                <div class="w-full md:w-1/3 aspect-[4/3] rounded-lg overflow-hidden border border-white/10 shadow-2xl">
-                    <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=800&auto=format&fit=crop" 
-                         alt="Suit Detail" class="w-full h-full object-cover filter grayscale">
-                </div>
-            </div>
-        </section>
-
-
-        <!-- CATALOGO SECTION -->
-        <section id="catalogo" class="max-w-7xl mx-auto px-4 sm:px-8 scroll-mt-28">
-            
-            <!-- Filters & Section Title Header -->
-            <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-white/10 pb-6 mb-12 gap-6">
-                <div>
-                    <h2 class="font-serif text-2xl sm:text-4xl font-bold tracking-wider uppercase">Colección Masculina</h2>
-                    <p class="text-xs text-gray-400 tracking-widest uppercase mt-1">Prendas exclusivas de producción limitada</p>
-                </div>
-
-                <!-- Category Filter Pills -->
-                <div class="flex flex-wrap gap-2 text-xs uppercase tracking-widest" id="category-filters">
-                    <button onclick="setCategory('all')" id="btn-all" class="filter-btn active px-4 py-2 border border-white bg-white text-black transition-all duration-300">
-                        Todos
-                    </button>
-                    <button onclick="setCategory('blazers')" id="btn-blazers" class="filter-btn px-4 py-2 border border-white/20 text-gray-300 hover:border-white transition-all duration-300">
-                        Blazers
-                    </button>
-                    <button onclick="setCategory('camisas')" id="btn-camisas" class="filter-btn px-4 py-2 border border-white/20 text-gray-300 hover:border-white transition-all duration-300">
-                        Camisas
-                    </button>
-                    <button onclick="setCategory('abrigos')" id="btn-abrigos" class="filter-btn px-4 py-2 border border-white/20 text-gray-300 hover:border-white transition-all duration-300">
-                        Abrigos
-                    </button>
-                    <button onclick="setCategory('calzado')" id="btn-calzado" class="filter-btn px-4 py-2 border border-white/20 text-gray-300 hover:border-white transition-all duration-300">
-                        Calzado
-                    </button>
-                </div>
-            </div>
-
-            <!-- Products Grid Container -->
-            <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
-                <!-- JavaScript renders product cards dynamically here -->
-            </div>
-
-        </section>
-
-
-        <!-- VALUE PROPOSITIONS (LUXURY SERVICES) -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-8 mt-28 border-t border-white/10 pt-16">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                <div class="p-6 border border-white/5 bg-cardBg/40 rounded-xl hover:border-white/20 transition-colors">
-                    <i class="ph ph-truck text-3xl text-gold mb-4 inline-block"></i>
-                    <h3 class="font-serif text-lg font-semibold tracking-wider mb-2 uppercase">Envío Express VIP</h3>
-                    <p class="text-xs text-gray-400 leading-relaxed font-light">Entrega prioritaria asegurada y embalaje exclusivo de alta protección para todas tus prendas.</p>
-                </div>
-                <div class="p-6 border border-white/5 bg-cardBg/40 rounded-xl hover:border-white/20 transition-colors">
-                    <i class="ph ph-scissors text-3xl text-gold mb-4 inline-block"></i>
-                    <h3 class="font-serif text-lg font-semibold tracking-wider mb-2 uppercase">Sastrería a Medida</h3>
-                    <p class="text-xs text-gray-400 leading-relaxed font-light">Servicio de ajuste personalizado en boutique para garantizar la caída perfecta de tu traje.</p>
-                </div>
-                <div class="p-6 border border-white/5 bg-cardBg/40 rounded-xl hover:border-white/20 transition-colors">
-                    <i class="ph ph-shield-check text-3xl text-gold mb-4 inline-block"></i>
-                    <h3 class="font-serif text-lg font-semibold tracking-wider mb-2 uppercase">Garantía de Autenticidad</h3>
-                    <p class="text-xs text-gray-400 leading-relaxed font-light">Certificado numérico de serie en cada pieza de nuestra colección limitada de autor.</p>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-
-    <!-- ========================================== -->
-    <!-- 4. QUICK VIEW MODAL (VISTA RÁPIDA DE PRODUCTO) -->
-    <!-- ========================================== -->
-    <div id="quickview-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
-        <div class="relative bg-cardBg border border-white/20 w-full max-w-4xl overflow-hidden rounded-xl shadow-2xl flex flex-col md:flex-row max-h-[90vh]">
-            
-            <!-- Close Button -->
-            <button onclick="closeQuickView()" class="absolute top-4 right-4 z-10 w-10 h-10 bg-black/60 text-white rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-colors">
-                <i class="ph ph-x text-xl"></i>
-            </button>
-
-            <!-- Image View -->
-            <div class="w-full md:w-1/2 h-72 md:h-auto relative bg-neutral-900">
-                <img id="qv-image" src="" alt="" class="w-full h-full object-cover">
-            </div>
-
-            <!-- Product Details -->
-            <div class="w-full md:w-1/2 p-6 sm:p-8 flex flex-col justify-between overflow-y-auto">
-                <div>
-                    <span id="qv-category" class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold">Categoría</span>
-                    <h3 id="qv-title" class="font-serif text-2xl sm:text-3xl font-bold tracking-wider mt-1 mb-2">Nombre del Producto</h3>
-                    <p id="qv-price" class="text-xl font-light text-white mb-4">€0.00</p>
-                    <p id="qv-description" class="text-xs text-gray-400 leading-relaxed font-light mb-6">Descripción del producto.</p>
-                    
-                    <!-- Size Selector -->
-                    <div class="mb-6">
-                        <label class="block text-xs uppercase tracking-widest text-gray-300 mb-2">Talla</label>
-                        <div class="flex gap-2" id="size-selector">
-                            <button onclick="selectSize(this)" class="size-btn px-3 py-1.5 border border-white/20 text-xs hover:border-white transition-colors">S</button>
-                            <button onclick="selectSize(this)" class="size-btn active px-3 py-1.5 border border-white bg-white text-black text-xs font-bold transition-colors">M</button>
-                            <button onclick="selectSize(this)" class="size-btn px-3 py-1.5 border border-white/20 text-xs hover:border-white transition-colors">L</button>
-                            <button onclick="selectSize(this)" class="size-btn px-3 py-1.5 border border-white/20 text-xs hover:border-white transition-colors">XL</button>
-                        </div>
-                    </div>
-
-                    <!-- Composition details -->
-                    <div class="border-t border-white/10 pt-4 mb-6">
-                        <ul class="text-[11px] text-gray-400 space-y-1">
-                            <li class="flex items-center gap-2"><i class="ph ph-check text-gold"></i> Material: 100% Lana Merino Extra Fina</li>
-                            <li class="flex items-center gap-2"><i class="ph ph-check text-gold"></i> Confeccionado a mano en Italia</li>
-                            <li class="flex items-center gap-2"><i class="ph ph-check text-gold"></i> Envío VIP y devoluciones gratuitas</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Add to Cart CTA -->
-                <button id="qv-add-btn" class="w-full bg-white text-black font-semibold text-xs uppercase tracking-[0.2em] py-4 hover:bg-gold hover:text-black transition-colors flex items-center justify-center gap-2">
-                    <i class="ph ph-shopping-bag text-lg"></i> Añadir a la Cesta
-                </button>
-            </div>
-        </div>
+  </div>
+  <div class="searchbar" id="searchbar" hidden>
+    <div class="wrap">
+      <svg class="ico"><use href="#i-search"/></svg>
+      <input id="q" type="search" placeholder="Busca vestidos, lino, kimono…" aria-label="Buscar productos" autocomplete="off">
+      <button class="tool" id="closeSearch" aria-label="Cerrar búsqueda"><svg class="ico"><use href="#i-x"/></svg></button>
     </div>
+  </div>
+</header>
 
-
-    <!-- ========================================== -->
-    <!-- 5. CART DRAWER (CARRITO DE COMPRAS LATERAL) -->
-    <!-- ========================================== -->
-    <div id="cart-drawer" class="fixed inset-0 z-50 pointer-events-none transition-opacity duration-300 opacity-0">
-        <!-- Backdrop -->
-        <div onclick="toggleCart()" class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
-
-        <!-- Sliding Panel -->
-        <div class="absolute top-0 right-0 h-full w-full max-w-md bg-darkBg border-l border-white/10 shadow-2xl p-6 flex flex-col justify-between transform translate-x-full transition-transform duration-300 ease-out pointer-events-auto" id="cart-panel">
-            
-            <!-- Cart Header -->
-            <div class="flex items-center justify-between border-b border-white/10 pb-4">
-                <div class="flex items-center gap-2">
-                    <i class="ph ph-shopping-bag text-xl text-gold"></i>
-                    <h3 class="font-serif text-lg font-bold tracking-wider uppercase">Cesta de Compra</h3>
-                </div>
-                <button onclick="toggleCart()" class="text-gray-400 hover:text-white p-1">
-                    <i class="ph ph-x text-2xl"></i>
-                </button>
-            </div>
-
-            <!-- Cart Items Scroll List -->
-            <div id="cart-items" class="my-6 overflow-y-auto flex-1 space-y-4 pr-1">
-                <!-- Dynamic Items from JavaScript -->
-            </div>
-
-            <!-- Cart Footer Summary & Checkout -->
-            <div class="border-t border-white/10 pt-4 space-y-4">
-                <div class="flex justify-between items-center text-sm">
-                    <span class="text-gray-400 font-light">Subtotal</span>
-                    <span id="cart-subtotal" class="font-serif font-bold text-lg text-white">€0.00</span>
-                </div>
-                <p class="text-[10px] text-gray-500 font-light">Impuestos incluidos. Envío calculado al finalizar el pedido.</p>
-                
-                <button onclick="checkout()" class="w-full bg-white text-black font-semibold text-xs uppercase tracking-[0.2em] py-4 hover:bg-gold hover:text-black transition-colors flex items-center justify-center gap-2">
-                    Proceder al Pago <i class="ph ph-arrow-right text-base"></i>
-                </button>
-            </div>
-
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-meta">
+        <span class="label">Moda mujer y hombre · Guadix, Granada</span>
+        <a class="label" href="#novedades">Novedades esta semana <svg class="ico arrow" style="width:16px;height:16px"><use href="#i-arrow"/></svg></a>
+      </div>
+      <h1 class="wordmark" aria-label="Black and White"><span>Black</span><em>&amp;</em><span>White</span></h1>
+      <div class="trip">
+        <div class="panel p1"><a href="#look" aria-label="Ver conjunto raya diplomática"></a><div class="cap">Conjunto raya diplomática <svg class="ico arrow" style="width:18px;height:18px"><use href="#i-arrow"/></svg></div></div>
+        <div class="panel p2"><a href="https://bwshops.com/es/94-jeans" aria-label="Ver jeans de mujer"></a><div class="cap">Lunares, trench y denim <svg class="ico arrow" style="width:18px;height:18px"><use href="#i-arrow"/></svg></div></div>
+        <div class="panel p3"><a href="https://bwshops.com/es/59-vestidos" aria-label="Ver vestidos"></a><div class="cap">Vestidos para cada ocasión <svg class="ico arrow" style="width:18px;height:18px"><use href="#i-arrow"/></svg></div></div>
+      </div>
+      <div class="hero-foot">
+        <p>Prendas elegidas una a una en nuestra tienda de Guadix. Pruébatelas en tienda o recíbelas en casa.</p>
+        <div class="ctas">
+          <a class="btn" href="#novedades">Comprar mujer <svg class="ico arrow" style="width:18px;height:18px"><use href="#i-arrow"/></svg></a>
+          <a class="btn ghost" href="#hombre">Comprar hombre</a>
         </div>
+      </div>
     </div>
+  </section>
 
-
-    <!-- ========================================== -->
-    <!-- 6. SEARCH MODAL (BUSCADOR SIMULADO) -->
-    <!-- ========================================== -->
-    <div id="search-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-start justify-center pt-24 px-4 opacity-0 pointer-events-none transition-opacity duration-300">
-        <div class="w-full max-w-2xl bg-cardBg border border-white/20 rounded-xl p-6 relative">
-            <button onclick="toggleSearchModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
-                <i class="ph ph-x text-2xl"></i>
-            </button>
-            <h3 class="font-serif text-lg uppercase tracking-wider mb-4">Buscar en Black & White</h3>
-            <div class="relative">
-                <input type="text" id="search-input" onkeyup="handleSearch()" placeholder="Ej. Blazer, abrigo lana, camisa..." class="w-full bg-neutral-900 border border-white/20 rounded-lg px-4 py-3 pl-10 text-sm text-white focus:outline-none focus:border-white">
-                <i class="ph ph-magnifying-glass absolute left-3 top-3.5 text-gray-400 text-lg"></i>
-            </div>
-            <div id="search-results" class="mt-4 max-h-60 overflow-y-auto space-y-2">
-                <!-- Search results rendered here -->
-            </div>
-        </div>
+  <!-- VENTAJAS -->
+  <section class="perks" aria-label="Por qué comprar en Black &amp; White">
+    <div class="wrap">
+      <div class="perk"><svg class="ico"><use href="#i-pin"/></svg><div><b>Tienda física en Guadix</b><span>Av. Obispo Medina Olmos, 56</span></div></div>
+      <a class="perk" href="https://bwshops.com/content/1-envios"><svg class="ico"><use href="#i-truck"/></svg><div><b>Envíos a toda España</b><span>Consulta plazos y precios</span></div></a>
+      <a class="perk" href="https://bwshops.com/content/9-devoluciones"><svg class="ico"><use href="#i-return"/></svg><div><b>Cambios y devoluciones</b><span>Así funcionan</span></div></a>
+      <a class="perk" href="https://wa.me/34647155093" target="_blank" rel="noopener"><svg class="ico"><use href="#i-chat"/></svg><div><b>Te asesoramos por WhatsApp</b><span>Tallas, stock y looks</span></div></a>
     </div>
+  </section>
 
+  <!-- CATEGORÍAS -->
+  <section class="section" id="mujer">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><span class="label">Comprar por categoría</span><h2 class="h2">Encuentra tu <em>estilo</em></h2></div>
+      </div>
+      <div class="cats">
+        <a class="cat" href="https://bwshops.com/es/59-vestidos"><img src="img/4643.jpg" alt="Mujer: vestido midi estampado" loading="lazy"><div class="tag"><strong>Mujer</strong><span><svg class="ico" style="width:18px;height:18px"><use href="#i-arrow"/></svg></span></div></a>
+        <a class="cat" href="https://bwshops.com/es/77-chaquetas"><img src="img/4045.jpg" alt="Hombre: chaqueta JJ Rebel" loading="lazy"><div class="tag"><strong>Hombre</strong><span><svg class="ico" style="width:18px;height:18px"><use href="#i-arrow"/></svg></span></div></a>
+        <a class="cat" href="https://bwshops.com/es/61-calzado"><img src="img/4257.jpg" alt="Calzado: zapatilla animal print" loading="lazy"><div class="tag"><strong>Calzado</strong><span><svg class="ico" style="width:18px;height:18px"><use href="#i-arrow"/></svg></span></div></a>
+        <a class="cat" href="https://bwshops.com/es/62-complementos"><img src="img/4465.jpg" alt="Complementos: pendientes" loading="lazy"><div class="tag"><strong>Complementos</strong><span><svg class="ico" style="width:18px;height:18px"><use href="#i-arrow"/></svg></span></div></a>
+      </div>
+    </div>
+  </section>
 
-    <!-- ========================================== -->
-    <!-- 7. FOOTER DE LUJO -->
-    <!-- ========================================== -->
-    <footer class="bg-black border-t border-white/10 pt-16 pb-8 text-gray-400 text-xs">
-        <div class="max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
-            <!-- Col 1: Brand Info -->
-            <div class="space-y-4">
-                <a href="#" class="font-serif text-xl font-bold tracking-widest uppercase text-white block">
-                    BLACK<span class="font-light text-gray-400">&</span>WHITE
-                </a>
-                <p class="font-light leading-relaxed">
-                    Firma de moda masculina orientada a la distinción y sofisticación atemporal. Confección de autor con materiales nobles.
-                </p>
-                <div class="flex space-x-4 text-lg text-white pt-2">
-                    <a href="#" class="hover:text-gold transition-colors"><i class="ph ph-instagram-logo"></i></a>
-                    <a href="#" class="hover:text-gold transition-colors"><i class="ph ph-facebook-logo"></i></a>
-                    <a href="#" class="hover:text-gold transition-colors"><i class="ph ph-twitter-logo"></i></a>
-                </div>
-            </div>
+  <!-- NOVEDADES -->
+  <section class="section" id="novedades" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><span class="label">Recién llegado</span><h2 class="h2">Novedades <em>esta semana</em></h2></div>
+        <div class="chips" id="chips" role="group" aria-label="Filtrar novedades"></div>
+      </div>
+      <div class="grid" id="grid"></div>
+      <div style="margin-top:48px;display:flex;justify-content:center"><a class="btn ghost" href="https://bwshops.com/es/97-novedades">Ver todas las novedades</a></div>
+    </div>
+  </section>
 
-            <!-- Col 2: Colecciones -->
-            <div class="space-y-3">
-                <h4 class="font-serif text-white tracking-widest uppercase font-semibold text-sm">Colección</h4>
-                <ul class="space-y-2 font-light">
-                    <li><a href="#catalogo" onclick="setCategory('blazers')" class="hover:text-white transition-colors">Blazers & Trajes</a></li>
-                    <li><a href="#catalogo" onclick="setCategory('camisas')" class="hover:text-white transition-colors">Camisas de Seda & Algodón</a></li>
-                    <li><a href="#catalogo" onclick="setCategory('abrigos')" class="hover:text-white transition-colors">Abrigos y Gabardinas</a></li>
-                    <li><a href="#catalogo" onclick="setCategory('calzado')" class="hover:text-white transition-colors">Calzado & Calzado de Gala</a></li>
-                </ul>
-            </div>
-
-            <!-- Col 3: Atención al Cliente -->
-            <div class="space-y-3">
-                <h4 class="font-serif text-white tracking-widest uppercase font-semibold text-sm">Atención VIP</h4>
-                <ul class="space-y-2 font-light">
-                    <li><a href="#" class="hover:text-white transition-colors">Cita Privada en Boutique</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Guía de Tallas & Ajuste</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Mantenimiento de Prendas</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Envíos y Devoluciones</a></li>
-                </ul>
-            </div>
-
-            <!-- Col 4: Newsletter -->
-            <div class="space-y-3">
-                <h4 class="font-serif text-white tracking-widest uppercase font-semibold text-sm">Newsletter Exclusiva</h4>
-                <p class="font-light leading-relaxed">Recibe invitaciones a ventas privadas y lanzamientos de ediciones limitadas.</p>
-                <form onsubmit="subscribeNewsletter(event)" class="flex flex-col gap-2 pt-2">
-                    <input type="email" required placeholder="Tu correo electrónico" class="bg-neutral-900 border border-white/20 px-3 py-2 text-xs text-white focus:outline-none focus:border-white">
-                    <button type="submit" class="bg-white text-black font-bold uppercase tracking-widest py-2 hover:bg-gold transition-colors">Suscribirse</button>
-                </form>
-            </div>
+  <!-- CONJUNTO -->
+  <section class="section" id="look" style="background:var(--soft)">
+    <div class="wrap look">
+      <div class="look-img">
+        <img src="img/4665.jpg" alt="Conjunto de chaleco y pantalón de lino con raya diplomática" loading="lazy">
+        <span class="pin" style="top:13%;left:56%">1</span>
+        <span class="pin" style="top:58%;left:44%">2</span>
+      </div>
+      <div class="look-txt">
+        <span class="label" style="color:var(--muted)">Completa el look</span>
+        <h2 class="h2" style="margin-top:14px">Lino <em>raya diplomática</em></h2>
+        <p class="lead">Chaleco y pantalón a juego. Llévalos juntos para un traje fresco o por separado con básicos blancos.</p>
+        <div class="items" id="lookItems"></div>
+        <div class="total">
+          <div><span class="label" style="color:var(--muted)">Total conjunto</span><br><strong id="lookTotal">75,98 €</strong></div>
+          <button class="btn" id="addLook">Añadir a la cesta <svg class="ico arrow" style="width:18px;height:18px"><use href="#i-arrow"/></svg></button>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-8 pt-8 flex flex-col sm:flex-row justify-between items-center text-[10px] tracking-widest uppercase text-gray-500 gap-4">
-            <p>&copy; 2026 BLACK AND WHITE MENSWEAR. TODOS LOS DERECHOS RESERVADOS.</p>
-            <div class="flex space-x-6">
-                <a href="#" class="hover:text-gray-300">PRIVACIDAD</a>
-                <a href="#" class="hover:text-gray-300">TÉRMINOS</a>
-                <a href="#" class="hover:text-gray-300">COOKIES</a>
-            </div>
+  <!-- HOMBRE -->
+  <section class="section dark" id="hombre">
+    <div class="wrap men">
+      <div class="men-intro">
+        <span class="label" style="color:#9b9b95">Hombre</span>
+        <h2 class="h2" style="margin-top:14px">Básicos que <em>funcionan</em></h2>
+        <p>Chaquetas, camisas y polos de Jack &amp; Jones, Only &amp; Sons y más marcas, listos para combinar.</p>
+        <div class="chips">
+          <a class="chip" href="https://bwshops.com/es/77-chaquetas">Chaquetas</a>
+          <a class="chip" href="https://bwshops.com/es/74-camisas">Camisas</a>
+          <a class="chip" href="https://bwshops.com/es/76-polos">Polos</a>
+          <a class="chip" href="https://bwshops.com/es/98-jerseys">Jerseys</a>
+          <a class="chip" href="https://bwshops.com/es/65-sudaderas">Sudaderas</a>
+          <a class="chip" href="https://bwshops.com/es/75-camisetas">Camisetas</a>
+          <a class="chip" href="https://bwshops.com/es/69-pantalones">Pantalones</a>
+          <a class="chip" href="https://bwshops.com/es/88-jeans">Jeans</a>
         </div>
-    </footer>
+      </div>
+      <div class="grid" id="menGrid"></div>
+    </div>
+  </section>
 
+  <!-- TIENDA -->
+  <section class="section" id="tienda">
+    <div class="wrap">
+      <div class="store">
+        <div class="store-txt">
+          <div>
+            <span class="label" style="color:var(--muted)">Nuestra tienda</span>
+            <h2 class="h2" style="margin:14px 0 22px">Ven a <em>probártelo</em></h2>
+            <address>Av. Obispo Medina Olmos, 56<br>18500 Guadix, Granada</address>
+          </div>
+          <dl>
+            <dt class="label">Teléfono</dt><dd>+34 647 15 50 93</dd>
+            <dt class="label">Email</dt><dd>info@bwshops.com</dd>
+          </dl>
+          <div class="ctas">
+            <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Av.+Obispo+Medina+Olmos+56+Guadix" target="_blank" rel="noopener">Cómo llegar <svg class="ico arrow" style="width:18px;height:18px"><use href="#i-arrow"/></svg></a>
+            <a class="btn ghost" href="https://wa.me/34647155093" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+          </div>
+        </div>
+        <div class="store-img" role="img" aria-label="Look de Black &amp; White: blusa de lunares, trench y vaqueros"></div>
+      </div>
+    </div>
+  </section>
 
-    <!-- ========================================== -->
-    <!-- JAVASCRIPT LOGIC -->
-    <!-- ========================================== -->
-    <script>
-        // DATA PRODUCTS (ROPA MASCULINA DE LUJO)
-        const products = [
-            {
-                id: 1,
-                name: "Blazer Midnight Tuxedo",
-                category: "blazers",
-                price: 890,
-                image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=800&auto=format&fit=crop",
-                description: "Blazer de esmoquin con solapa de satén negro en seda. Corte slim refinado pensado para eventos de etiqueta nocturna."
-            },
-            {
-                id: 2,
-                name: "Camisa Silk Couture White",
-                category: "camisas",
-                price: 340,
-                image: "https://images.unsplash.com/photo-1620012253295-c15cc3e65df4?q=80&w=800&auto=format&fit=crop",
-                description: "Camisa de vestir blanca confeccionada en fino algodón egipcio con botones de madreperla oscurecida."
-            },
-            {
-                id: 3,
-                name: "Abrigo Cashmere Double-Breasted",
-                category: "abrigos",
-                price: 1450,
-                image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=800&auto=format&fit=crop",
-                description: "Abrigo largo cruzado en mezcla de cashmere y lana virgen de alta densidad. Estructura imponente y sobria."
-            },
-            {
-                id: 4,
-                name: "Mocasín Executive Leather Noir",
-                category: "calzado",
-                price: 520,
-                image: "https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?q=80&w=800&auto=format&fit=crop",
-                description: "Calzado artesanal en piel de becerro negra con cosido Goodyear y hebilla discreta de acabado mate."
-            },
-            {
-                id: 5,
-                name: "Blazer Charcoal Double Wool",
-                category: "blazers",
-                price: 950,
-                image: "https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?q=80&w=800&auto=format&fit=crop",
-                description: "Chaqueta estructurada de sastre en tono gris carbón profundo con textura micro-cheviot."
-            },
-            {
-                id: 6,
-                name: "Camisa Black Satin Collar",
-                category: "camisas",
-                price: 380,
-                image: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?q=80&w=800&auto=format&fit=crop",
-                description: "Camisa en satén técnico negro brillante. Diseño vanguardista de caida fluida y puños franceses."
-            },
-            {
-                id: 7,
-                name: "Gabardina Impermeable Monochorome",
-                category: "abrigos",
-                price: 1200,
-                image: "https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=800&auto=format&fit=crop",
-                description: "Gabardina técnica resistente al agua en tono negro mate absoluto. Cierre oculto de líneas depuradas."
-            },
-            {
-                id: 8,
-                name: "Zapato Oxford Royale Patent",
-                category: "calzado",
-                price: 610,
-                image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?q=80&w=800&auto=format&fit=crop",
-                description: "Zapato clásico estilo Oxford en charol de alta distinción. Horma anatómica para máximo confort."
-            }
-        ];
+  <!-- NEWSLETTER -->
+  <section class="section" style="padding-top:0">
+    <div class="wrap news">
+      <div><span class="label" style="color:var(--muted)">Newsletter</span><h2 class="h2" style="margin-top:14px">Entérate antes <em>que nadie</em></h2></div>
+      <div>
+        <form id="newsForm" novalidate>
+          <input id="email" type="email" placeholder="Tu email" aria-label="Tu email" required autocomplete="email">
+          <button type="submit">Suscribirme <svg class="ico arrow" style="width:18px;height:18px"><use href="#i-arrow"/></svg></button>
+        </form>
+        <div class="ok" id="newsOk" hidden>Listo. Te avisaremos cuando lleguen novedades.</div>
+        <p class="note" id="newsNote">Una vez por semana, con lo nuevo de la tienda. Puedes darte de baja cuando quieras. <a href="https://bwshops.com/content/3-politica-de-privacidad" style="text-decoration:underline">Privacidad</a></p>
+      </div>
+    </div>
+  </section>
+</main>
 
-        // STATE MANAGEMENT
-        let currentCategory = 'all';
-        let cart = [];
-        let selectedSize = 'M';
-        let heroDismissed = false;
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="logo" href="#top">Black <em>&amp;</em> White</a>
+        <p>Moda para mujer y hombre en el centro de Guadix. Novedades cada semana en tienda y online.</p>
+        <div class="social">
+          <a href="https://www.instagram.com/blackandwhite.shops/" target="_blank" rel="noopener" aria-label="Instagram"><svg class="ico"><use href="#i-ig"/></svg></a>
+          <a href="https://www.tiktok.com/@blackandwhiteshops" target="_blank" rel="noopener" aria-label="TikTok"><svg class="ico"><use href="#i-tt"/></svg></a>
+          <a href="https://www.facebook.com/blackandwhitemoda" target="_blank" rel="noopener" aria-label="Facebook"><svg class="ico"><use href="#i-fb"/></svg></a>
+        </div>
+      </div>
+      <div><h4 class="label">Comprar</h4><ul>
+        <li><a href="https://bwshops.com/es/97-novedades">Novedades</a></li>
+        <li><a href="#mujer">Mujer</a></li>
+        <li><a href="#hombre">Hombre</a></li>
+        <li><a href="https://bwshops.com/es/61-calzado">Calzado</a></li>
+        <li><a href="https://bwshops.com/es/62-complementos">Complementos</a></li>
+      </ul></div>
+      <div><h4 class="label">Ayuda</h4><ul>
+        <li><a href="https://bwshops.com/content/7-black-white-en-guadix-granada">Quiénes somos</a></li>
+        <li><a href="https://bwshops.com/content/1-envios">Envíos</a></li>
+        <li><a href="https://bwshops.com/content/9-devoluciones">Devoluciones</a></li>
+        <li><a href="https://bwshops.com/contactenos">Contacto</a></li>
+      </ul></div>
+      <div><h4 class="label">Contacto</h4><ul>
+        <li>Av. Obispo Medina Olmos, 56<br>18500 Guadix, Granada</li>
+        <li>+34 647 15 50 93</li>
+        <li>info@bwshops.com</li>
+      </ul></div>
+    </div>
+    <div class="bigword" aria-hidden="true"><span>Black</span><em>&amp;</em><span>White</span></div>
+    <div class="legal">
+      <span>© 2026 Black &amp; White. Todos los derechos reservados.</span>
+      <nav aria-label="Legal">
+        <a href="https://bwshops.com/content/2-aviso-legal">Aviso legal</a>
+        <a href="https://bwshops.com/content/3-politica-de-privacidad">Política de privacidad</a>
+        <a href="https://bwshops.com/content/4-uso-de-cookies">Cookies</a>
+      </nav>
+    </div>
+  </div>
+</footer>
 
-        // INITIALIZATION
-        document.addEventListener('DOMContentLoaded', () => {
-            renderProducts();
-            
-            // Listen for user scroll to automatically dismiss hero overlay
-            window.addEventListener('scroll', handleHeroScroll, { passive: true });
-        });
+<!-- Paneles -->
+<div class="scrim" id="scrim"></div>
 
-        // 1. HERO OVERLAY DISMISSAL
-        function dismissHero() {
-            const hero = document.getElementById('hero-cover');
-            if (hero && !heroDismissed) {
-                hero.classList.add('hero-hidden');
-                heroDismissed = true;
-                // Allow normal body scrolling behavior
-            }
-        }
+<aside class="drawer" id="cart" aria-label="Cesta" aria-hidden="true">
+  <div class="d-head"><h2>Tu cesta</h2><button class="tool" data-close aria-label="Cerrar cesta"><svg class="ico"><use href="#i-x"/></svg></button></div>
+  <div class="d-body" id="cartBody"></div>
+  <div class="d-foot" id="cartFoot">
+    <div class="row"><span>Subtotal</span><strong id="subtotal">0,00 €</strong></div>
+    <small>Gastos de envío calculados en el siguiente paso.</small>
+    <a class="btn" href="https://bwshops.com/es/carrito?action=show">Finalizar compra</a>
+  </div>
+</aside>
 
-        function handleHeroScroll() {
-            if (window.scrollY > 40 && !heroDismissed) {
-                dismissHero();
-            }
-        }
+<aside class="drawer left" id="menu" aria-label="Menú" aria-hidden="true">
+  <div class="d-head"><span class="logo">Black <em>&amp;</em> White</span><button class="tool" data-close aria-label="Cerrar menú"><svg class="ico"><use href="#i-x"/></svg></button></div>
+  <div class="d-body">
+    <ul class="mnav">
+      <li><a href="https://bwshops.com/es/97-novedades">Novedades <span class="plus">→</span></a></li>
+      <li><details><summary>Mujer <span class="plus">+</span></summary><ul>
+        <li><a href="https://bwshops.com/es/59-vestidos">Vestidos</a></li><li><a href="https://bwshops.com/es/58-camisetas-tops">Camisetas y tops</a></li>
+        <li><a href="https://bwshops.com/es/55-camisas">Camisas</a></li><li><a href="https://bwshops.com/es/93-pantalones">Pantalones</a></li>
+        <li><a href="https://bwshops.com/es/94-jeans">Jeans</a></li><li><a href="https://bwshops.com/es/95-monos">Monos</a></li>
+        <li><a href="https://bwshops.com/es/90-faldas">Faldas</a></li><li><a href="https://bwshops.com/es/60-chaquetas">Chaquetas</a></li>
+        <li><a href="https://bwshops.com/es/56-jerseys">Jerseys</a></li><li><a href="https://bwshops.com/es/57-sudaderas">Sudaderas</a></li>
+      </ul></details></li>
+      <li><details><summary>Hombre <span class="plus">+</span></summary><ul>
+        <li><a href="https://bwshops.com/es/77-chaquetas">Chaquetas</a></li><li><a href="https://bwshops.com/es/74-camisas">Camisas</a></li>
+        <li><a href="https://bwshops.com/es/76-polos">Polos</a></li><li><a href="https://bwshops.com/es/98-jerseys">Jerseys</a></li>
+        <li><a href="https://bwshops.com/es/65-sudaderas">Sudaderas</a></li><li><a href="https://bwshops.com/es/75-camisetas">Camisetas</a></li>
+        <li><a href="https://bwshops.com/es/69-pantalones">Pantalones</a></li><li><a href="https://bwshops.com/es/88-jeans">Jeans</a></li>
+      </ul></details></li>
+      <li><a href="https://bwshops.com/es/61-calzado">Calzado <span class="plus">→</span></a></li>
+      <li><a href="https://bwshops.com/es/62-complementos">Complementos <span class="plus">→</span></a></li>
+      <li><a href="#tienda" data-close>Nuestra tienda <span class="plus">→</span></a></li>
+    </ul>
+  </div>
+  <div class="d-foot"><a class="btn ghost" href="https://bwshops.com/es/mi-cuenta">Mi cuenta</a></div>
+</aside>
 
-        // 2. PRODUCT RENDERING & FILTERING
-        function renderProducts() {
-            const container = document.getElementById('products-grid');
-            const filtered = currentCategory === 'all' 
-                ? products 
-                : products.filter(p => p.category === currentCategory);
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span><button id="toastBtn">Ver cesta</button></div>
 
-            container.innerHTML = filtered.map(product => `
-                <div class="group glass-card border border-white/10 rounded-xl overflow-hidden hover:border-white/40 transition-all duration-500 gold-border-glow flex flex-col justify-between">
-                    <div class="relative aspect-[3/4] overflow-hidden bg-neutral-900 cursor-pointer" onclick="openQuickView(${product.id})">
-                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out filter grayscale hover:grayscale-0">
-                        
-                        <!-- Quick View Overlay Button -->
-                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                            <span class="bg-white text-black text-[10px] tracking-[0.2em] uppercase font-bold px-4 py-2 hover:bg-gold transition-colors">
-                                Vista Rápida
-                            </span>
-                        </div>
+<a class="wa" href="https://wa.me/34647155093" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+  <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3Zm0 23.7c-2 0-4-.6-5.7-1.6l-.4-.2-3.9 1 1-3.8-.3-.4A10.7 10.7 0 1 1 16 26.7Zm5.9-8c-.3-.2-1.9-1-2.2-1-.3-.1-.5-.2-.7.1l-1 1.3c-.2.2-.4.2-.7 0a8.8 8.8 0 0 1-4.4-3.8c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.5c.2.2 2.3 3.6 5.6 5 2.1.9 2.9 1 4 .8.6-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5l-.7-.4Z"/></svg>
+</a>
 
-                        <!-- Tag -->
-                        <span class="absolute top-3 left-3 bg-black/80 backdrop-blur-md border border-white/20 text-[9px] uppercase tracking-widest px-2.5 py-1 text-gold">
-                            ${product.category}
-                        </span>
-                    </div>
+<div class="cookies" id="cookies" hidden>
+  <p>Usamos cookies propias y de terceros para analizar el tráfico y mejorar tu experiencia. <a href="https://bwshops.com/content/4-uso-de-cookies">Más información</a></p>
+  <div><button id="ckNo">Rechazar</button><button class="yes" id="ckYes">Aceptar</button></div>
+</div>
 
-                    <div class="p-5 flex-1 flex flex-col justify-between">
-                        <div>
-                            <h3 class="font-serif text-lg font-semibold tracking-wide text-white mb-1 group-hover:text-gold transition-colors cursor-pointer" onclick="openQuickView(${product.id})">
-                                ${product.name}
-                            </h3>
-                            <p class="text-xs text-gray-400 font-light line-clamp-2 mb-4 leading-relaxed">
-                                ${product.description}
-                            </p>
-                        </div>
+<script>
+const IMG = id => `img/${id}.jpg`;
+const fmt = n => n.toLocaleString('es-ES',{style:'currency',currency:'EUR'});
+const URL_BASE = 'https://bwshops.com/es/';
 
-                        <div class="flex items-center justify-between border-t border-white/10 pt-4">
-                            <span class="font-serif text-base font-bold text-white">€${product.price}</span>
-                            <button onclick="addToCart(${product.id})" class="text-xs uppercase tracking-wider font-semibold border border-white/30 px-3 py-2 hover:border-white hover:bg-white hover:text-black transition-all duration-300 flex items-center gap-1">
-                                <i class="ph ph-plus"></i> Añadir
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
+const products = [
+  {id:'mono-halter', name:'Mono halter vivos contraste', desc:'Cuello halter, escote pico y espalda descubierta. Pernera ancha con nudo delantero.', price:54.99, cat:'monos', a:4682, b:4681, href:'mujer/78279-1807-mono-halter-vivos-contraste.html'},
+  {id:'pantalon-aberturas', name:'Pantalón aberturas', desc:'Tiro medio, cintura elástica con cordones y aberturas laterales. 100% algodón.', price:29.99, cat:'pantalones', a:4678, b:4677, href:'mujer/78278-pantalon-aberturas.html'},
+  {id:'top-kimono', name:'Top cruzado kimono', desc:'Cruzado estilo kimono, manga sisa, tejido bambula y lazada. 100% algodón.', price:29.99, cat:'tops', a:4674, b:4673, href:'mujer/78277-1802-top-cruzado-kimono.html'},
+  {id:'vestido-midi-halter', name:'Vestido midi estampado', desc:'Cuello halter, escote pico, pinzas y forro interior combinado.', price:54.99, cat:'vestidos', a:4670, b:4669, href:'mujer/78276-1798-vestido-midi-estampado.html'},
+  {id:'pantalon-lino', name:'Pantalón lino raya diplomática', desc:'Tiro alto, pernera recta y bolsillos delanteros. Lino con raya diplomática.', price:39.99, cat:'pantalones', a:4665, b:4664, href:'inicio/78275-1793-pantalon-lino-raya-diplomatica.html'},
+  {id:'chaleco-lino', name:'Chaleco lino raya diplomática', desc:'Escote cuadrado y manga sisa. Cierre con botones. 80% rayón, 20% lino.', price:35.99, cat:'tops', a:4660, b:4663, href:'mujer/78274-1788-chaleco-lino-raya-diplomatica.html'},
+  {id:'vestido-satinado', name:'Vestido satinado vivos contraste', desc:'Escote pico con vivos a contraste y pliegues. Manga corta.', price:54.99, cat:'vestidos', a:4651, b:4650, href:'mujer/78271-1776-vestido-satinado-vivos-contraste.html'},
+  {id:'vestido-midi-tirantes', name:'Vestido midi estampado de tirantes', desc:'Escote cuadrado, tirantes y detalle de nesgas. Cremallera lateral oculta.', price:55.99, cat:'vestidos', a:4644, b:4643, href:'mujer/78270-1772-vestido-midi-estampado.html'},
+  {id:'camisa-nudo', name:'Camisa nudo estampada', desc:'Cuello solapa, manga corta con vuelta y nudo delantero.', price:35.99, cat:'tops', a:4641, b:4640, href:'inicio/78269-1767-camisa-nudo-estampada.html'},
+  {id:'culotte', name:'Pantalón culotte estampado', desc:'Tiro medio y pierna ancha. Cremallera lateral oculta. 100% poliéster.', price:35.99, cat:'pantalones', a:4638, b:4637, href:'inicio/78268-1762-pantalon-culotte-estampado.html'},
+];
+const men = [
+  {id:'chaqueta-jj', name:'Chaqueta JJ Rebel', desc:'Jack & Jones. Chaqueta ligera para entretiempo.', price:39.99, a:4045, href:'hombre/78135-1138-chaqueta-jj-rebel.html'},
+  {id:'camisa-os', name:'Camisa Only & Sons', desc:'Camisa de corte regular, fácil de combinar.', price:29.99, a:3997, href:'hombre/78126-1066-camisa-onlysons.html'},
+  {id:'polo-jj', name:'Polo JJ Rebel punto', desc:'Jack & Jones. Polo de punto.', price:24.99, a:4102, href:'inicio/78147-1310-polo-jjrebel-punto.html'},
+];
+const all = [...products, ...men];
+const byId = id => all.find(p => p.id === id);
+const SIZES = ['XS','S','M','L','XL'];
+const CATS = [['todo','Todo'],['vestidos','Vestidos'],['pantalones','Pantalones'],['tops','Tops y camisas'],['monos','Monos']];
 
-        function setCategory(category) {
-            currentCategory = category;
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem('bw_'+k); return v ? JSON.parse(v) : d; }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem('bw_'+k, JSON.stringify(v)); }catch(e){} }
+};
+let cart = store.get('cart', []);
+let favs = new Set(store.get('favs', []));
+let filter = 'todo', query = '';
 
-            // Update filter buttons styling
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('bg-white', 'text-black');
-                btn.classList.add('border-white/20', 'text-gray-300');
-            });
+function cardHTML(p, i){
+  const fav = favs.has(p.id);
+  return `<article class="card" style="animation-delay:${i*40}ms"><div class="frame">
+    <a class="media" href="${URL_BASE + p.href}">
+      <img class="a" src="${IMG(p.a)}" alt="${p.name}" loading="lazy">
+      ${p.b ? `<img class="b" src="${IMG(p.b)}" alt="" loading="lazy">` : ''}
+      <span class="badge">Nuevo</span>
+    </a>
+    <button class="fav" data-fav="${p.id}" aria-pressed="${fav}" aria-label="${fav ? 'Quitar de' : 'Añadir a'} favoritos: ${p.name}"><svg class="ico"><use href="#i-heart"/></svg></button>
+    <div class="quick"><span class="label">Añadir talla</span><div class="sizes">${SIZES.map(s=>`<button data-add="${p.id}" data-size="${s}" aria-label="Añadir ${p.name}, talla ${s}">${s}</button>`).join('')}</div></div></div>
+    <div class="info"><h3><a href="${URL_BASE + p.href}">${p.name}</a></h3><p>${p.desc}</p><span class="price">${fmt(p.price)}</span></div>
+  </article>`;
+}
 
-            const activeBtn = document.getElementById(`btn-${category}`);
-            if (activeBtn) {
-                activeBtn.classList.remove('border-white/20', 'text-gray-300');
-                activeBtn.classList.add('bg-white', 'text-black');
-            }
+function renderChips(){
+  document.getElementById('chips').innerHTML = CATS.map(([k,l]) => {
+    const n = k === 'todo' ? products.length : products.filter(p => p.cat === k).length;
+    return `<button class="chip" data-filter="${k}" aria-pressed="${filter===k}">${l} <small>${n}</small></button>`;
+  }).join('');
+}
+function renderGrid(){
+  const q = query.trim().toLowerCase();
+  const list = products.filter(p => (filter === 'todo' || p.cat === filter) && (!q || (p.name + ' ' + p.desc).toLowerCase().includes(q)));
+  document.getElementById('grid').innerHTML = list.length ? list.map(cardHTML).join('') :
+    `<p class="empty">No hay novedades que coincidan con “${q.replace(/[<>&"]/g,'')}”. <a href="https://bwshops.com/es/buscar?search_query=${encodeURIComponent(q)}" style="text-decoration:underline">Buscar en toda la tienda</a></p>`;
+}
+document.getElementById('menGrid').innerHTML = men.map(cardHTML).join('');
 
-            renderProducts();
-        }
+/* Conjunto */
+const look = ['chaleco-lino','pantalon-lino'];
+document.getElementById('lookItems').innerHTML = look.map((id,i) => { const p = byId(id); return `
+  <div class="item">
+    <input class="check" type="checkbox" id="lk-${id}" checked aria-label="Incluir ${p.name}">
+    <img src="${IMG(p.a)}" alt="" loading="lazy">
+    <div><label class="n" for="lk-${id}"><i>${i+1}</i>${p.name}</label>
+      <select id="lks-${id}" aria-label="Talla de ${p.name}">${SIZES.map(s=>`<option ${s==='S'?'selected':''}>${s}</option>`).join('')}</select></div>
+    <span class="price">${fmt(p.price)}</span>
+  </div>`; }).join('');
+function lookTotal(){
+  const t = look.filter(id => document.getElementById('lk-'+id).checked).reduce((s,id)=>s+byId(id).price,0);
+  document.getElementById('lookTotal').textContent = fmt(t);
+  document.getElementById('addLook').disabled = t === 0;
+  document.getElementById('addLook').style.opacity = t === 0 ? .4 : 1;
+}
+document.getElementById('lookItems').addEventListener('change', lookTotal);
+document.getElementById('addLook').addEventListener('click', () => {
+  const ids = look.filter(id => document.getElementById('lk-'+id).checked);
+  ids.forEach(id => addToCart(id, document.getElementById('lks-'+id).value, true));
+  if (ids.length) showToast(ids.length === 2 ? 'Conjunto añadido a la cesta' : 'Añadido a la cesta');
+});
 
-        // 3. QUICK VIEW MODAL
-        let currentQvProductId = null;
+/* Cesta */
+function addToCart(id, size, silent){
+  const line = cart.find(l => l.id === id && l.size === size);
+  if (line) line.qty++; else cart.push({id, size, qty:1});
+  saveCart();
+  const c = document.getElementById('cartCount'); c.classList.remove('bump'); void c.offsetWidth; c.classList.add('bump');
+  if (!silent) showToast(`${byId(id).name} · talla ${size} añadido`);
+}
+function saveCart(){ store.set('cart', cart); renderCart(); }
+function renderCart(){
+  const n = cart.reduce((s,l)=>s+l.qty,0);
+  document.getElementById('cartCount').textContent = n;
+  const body = document.getElementById('cartBody');
+  document.getElementById('cartFoot').hidden = !n;
+  if (!n){ body.innerHTML = `<div class="d-empty"><p>Tu cesta está vacía</p>Echa un vistazo a las novedades de esta semana.<br><br><a class="btn ghost" href="#novedades" data-close>Ver novedades</a></div>`; return; }
+  body.innerHTML = cart.map((l,i) => { const p = byId(l.id); return `
+    <div class="line">
+      <img src="${IMG(p.a)}" alt="">
+      <div><h3>${p.name}</h3><div class="meta">Talla ${l.size} · ${fmt(p.price)}</div>
+        <div class="qty"><button data-q="${i}" data-d="-1" aria-label="Quitar uno">−</button><span>${l.qty}</span><button data-q="${i}" data-d="1" aria-label="Añadir uno">+</button></div></div>
+      <div style="display:grid;gap:10px;justify-items:end"><span class="lp">${fmt(p.price*l.qty)}</span><button class="rm" data-rm="${i}">Eliminar</button></div>
+    </div>`; }).join('');
+  document.getElementById('subtotal').textContent = fmt(cart.reduce((s,l)=>s+byId(l.id).price*l.qty,0));
+}
+document.getElementById('cartBody').addEventListener('click', e => {
+  const q = e.target.closest('[data-q]'), rm = e.target.closest('[data-rm]');
+  if (q){ const l = cart[+q.dataset.q]; l.qty += +q.dataset.d; if (l.qty < 1) cart.splice(+q.dataset.q,1); saveCart(); }
+  if (rm){ cart.splice(+rm.dataset.rm,1); saveCart(); }
+});
 
-        function openQuickView(productId) {
-            const product = products.find(p => p.id === productId);
-            if (!product) return;
+/* Favoritos */
+function renderFavCount(){ const c = document.getElementById('favCount'); c.textContent = favs.size; c.hidden = !favs.size; }
 
-            currentQvProductId = productId;
-            document.getElementById('qv-image').src = product.image;
-            document.getElementById('qv-title').innerText = product.name;
-            document.getElementById('qv-category').innerText = product.category;
-            document.getElementById('qv-price').innerText = `€${product.price}`;
-            document.getElementById('qv-description').innerText = product.description;
+/* Clicks globales */
+document.addEventListener('click', e => {
+  const add = e.target.closest('[data-add]');
+  if (add){ addToCart(add.dataset.add, add.dataset.size); return; }
+  const f = e.target.closest('[data-fav]');
+  if (f){ const id = f.dataset.fav; favs.has(id) ? favs.delete(id) : favs.add(id); store.set('favs',[...favs]);
+    f.setAttribute('aria-pressed', favs.has(id)); renderFavCount(); return; }
+  const ch = e.target.closest('[data-filter]');
+  if (ch){ filter = ch.dataset.filter; renderChips(); renderGrid(); return; }
+  if (e.target.closest('[data-close]') || e.target.id === 'scrim') closeAll();
+});
 
-            const modal = document.getElementById('quickview-modal');
-            modal.classList.remove('opacity-0', 'pointer-events-none');
-            
-            // Set Add button handler
-            document.getElementById('qv-add-btn').onclick = () => {
-                addToCart(product.id, selectedSize);
-                closeQuickView();
-            };
-        }
+/* Paneles */
+const scrim = document.getElementById('scrim');
+function openPanel(id){ closeAll(); const d = document.getElementById(id); d.classList.add('on'); d.setAttribute('aria-hidden','false'); scrim.classList.add('on'); document.body.style.overflow='hidden'; d.querySelector('[data-close]').focus(); }
+function closeAll(){ document.querySelectorAll('.drawer.on').forEach(d=>{d.classList.remove('on');d.setAttribute('aria-hidden','true');}); scrim.classList.remove('on'); document.body.style.overflow=''; }
+document.getElementById('openCart').addEventListener('click', () => openPanel('cart'));
+document.getElementById('openMenu').addEventListener('click', () => openPanel('menu'));
+document.getElementById('favBtn').addEventListener('click', () => { filter='todo'; query=''; renderChips();
+  const list = products.filter(p=>favs.has(p.id));
+  document.getElementById('grid').innerHTML = list.length ? list.map(cardHTML).join('') : '<p class="empty">Aún no tienes favoritos. Pulsa el corazón de cualquier prenda para guardarla aquí.</p>';
+  document.getElementById('novedades').scrollIntoView(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape'){ closeAll(); toggleSearch(false); } });
 
-        function closeQuickView() {
-            const modal = document.getElementById('quickview-modal');
-            modal.classList.add('opacity-0', 'pointer-events-none');
-        }
+/* Búsqueda */
+const sb = document.getElementById('searchbar'), qi = document.getElementById('q');
+function toggleSearch(on){ sb.hidden = !on; document.getElementById('openSearch').setAttribute('aria-expanded', on); if (on) qi.focus(); }
+document.getElementById('openSearch').addEventListener('click', () => toggleSearch(sb.hidden));
+document.getElementById('closeSearch').addEventListener('click', () => { toggleSearch(false); qi.value=''; query=''; renderGrid(); });
+qi.addEventListener('input', () => { query = qi.value; filter='todo'; renderChips(); renderGrid(); });
+qi.addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('novedades').scrollIntoView(); });
 
-        function selectSize(btnElement) {
-            document.querySelectorAll('.size-btn').forEach(btn => {
-                btn.classList.remove('bg-white', 'text-black', 'font-bold');
-                btn.classList.add('border-white/20');
-            });
-            btnElement.classList.add('bg-white', 'text-black', 'font-bold');
-            selectedSize = btnElement.innerText;
-        }
+/* Aviso */
+let tt;
+function showToast(msg){ const t = document.getElementById('toast'); document.getElementById('toastMsg').textContent = msg; t.classList.add('on'); clearTimeout(tt); tt = setTimeout(()=>t.classList.remove('on'), 3200); }
+document.getElementById('toastBtn').addEventListener('click', () => { document.getElementById('toast').classList.remove('on'); openPanel('cart'); });
 
-        // 4. CART SYSTEM
-        function addToCart(productId, size = 'M') {
-            const product = products.find(p => p.id === productId);
-            if (!product) return;
+/* Newsletter */
+document.getElementById('newsForm').addEventListener('submit', e => {
+  e.preventDefault(); const em = document.getElementById('email');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value)){ em.setCustomValidity('Escribe un email válido, por ejemplo nombre@gmail.com'); em.reportValidity(); return; }
+  em.setCustomValidity(''); e.target.hidden = true; document.getElementById('newsOk').hidden = false; document.getElementById('newsNote').hidden = true;
+});
+document.getElementById('email').addEventListener('input', e => e.target.setCustomValidity(''));
 
-            const existingIndex = cart.findIndex(item => item.id === productId && item.size === size);
-            if (existingIndex > -1) {
-                cart[existingIndex].quantity += 1;
-            } else {
-                cart.push({ ...product, size, quantity: 1 });
-            }
+/* Cookies */
+const ck = document.getElementById('cookies');
+if (!store.get('cookies', null)) ck.hidden = false;
+['ckYes','ckNo'].forEach(id => document.getElementById(id).addEventListener('click', () => { store.set('cookies', id==='ckYes'?'si':'no'); ck.hidden = true; }));
 
-            updateCartUI();
-            toggleCart(true); // Open cart to confirm addition
-        }
-
-        function updateCartQuantity(index, delta) {
-            cart[index].quantity += delta;
-            if (cart[index].quantity <= 0) {
-                cart.splice(index, 1);
-            }
-            updateCartUI();
-        }
-
-        function updateCartUI() {
-            const cartItemsContainer = document.getElementById('cart-items');
-            const cartCountLabel = document.getElementById('cart-count');
-            const subtotalLabel = document.getElementById('cart-subtotal');
-
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-
-            cartCountLabel.innerText = totalItems;
-            subtotalLabel.innerText = `€${subtotal.toLocaleString()}`;
-
-            if (cart.length === 0) {
-                cartItemsContainer.innerHTML = `
-                    <div class="text-center py-12 text-gray-500">
-                        <i class="ph ph-shopping-bag text-4xl mb-2 opacity-40"></i>
-                        <p class="text-xs uppercase tracking-widest font-light">Tu cesta está vacía</p>
-                    </div>
-                `;
-                return;
-            }
-
-            cartItemsContainer.innerHTML = cart.map((item, index) => `
-                <div class="flex gap-4 border-b border-white/10 pb-4 items-center">
-                    <img src="${item.image}" alt="${item.name}" class="w-16 h-20 object-cover rounded bg-neutral-900">
-                    <div class="flex-1">
-                        <h4 class="font-serif text-sm font-semibold">${item.name}</h4>
-                        <span class="text-[10px] text-gray-400 block mb-1 uppercase tracking-wider">Talla: ${item.size}</span>
-                        <span class="text-xs font-bold text-white">€${item.price}</span>
-                    </div>
-                    <div class="flex items-center border border-white/20">
-                        <button onclick="updateCartQuantity(${index}, -1)" class="px-2 py-1 text-xs hover:bg-white/10">-</button>
-                        <span class="px-2 text-xs font-bold">${item.quantity}</span>
-                        <button onclick="updateCartQuantity(${index}, 1)" class="px-2 py-1 text-xs hover:bg-white/10">+</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function toggleCart(forceOpen = false) {
-            const drawer = document.getElementById('cart-drawer');
-            const panel = document.getElementById('cart-panel');
-
-            if (forceOpen || drawer.classList.contains('opacity-0')) {
-                drawer.classList.remove('opacity-0', 'pointer-events-none');
-                panel.classList.remove('translate-x-full');
-            } else {
-                drawer.classList.add('opacity-0', 'pointer-events-none');
-                panel.classList.add('translate-x-full');
-            }
-        }
-
-        function checkout() {
-            if (cart.length === 0) {
-                alertCustom('Tu cesta está vacía. Añade alguna prenda antes de pagar.');
-                return;
-            }
-            alertCustom('¡Gracias por tu interés! Redirigiendo a la pasarela de pago segura de BLACK & WHITE...');
-        }
-
-        // 5. SEARCH & UI UTILITIES
-        function toggleSearchModal() {
-            const modal = document.getElementById('search-modal');
-            if (modal.classList.contains('opacity-0')) {
-                modal.classList.remove('opacity-0', 'pointer-events-none');
-                document.getElementById('search-input').focus();
-            } else {
-                modal.classList.add('opacity-0', 'pointer-events-none');
-            }
-        }
-
-        function handleSearch() {
-            const query = document.getElementById('search-input').value.toLowerCase();
-            const resultsContainer = document.getElementById('search-results');
-
-            if (!query.trim()) {
-                resultsContainer.innerHTML = '';
-                return;
-            }
-
-            const matched = products.filter(p => 
-                p.name.toLowerCase().includes(query) || 
-                p.description.toLowerCase().includes(query) ||
-                p.category.toLowerCase().includes(query)
-            );
-
-            if (matched.length === 0) {
-                resultsContainer.innerHTML = '<p class="text-xs text-gray-400 py-2">No se encontraron prendas.</p>';
-                return;
-            }
-
-            resultsContainer.innerHTML = matched.map(p => `
-                <div onclick="openQuickView(${p.id}); toggleSearchModal()" class="flex items-center gap-3 p-2 hover:bg-white/10 rounded cursor-pointer">
-                    <img src="${p.image}" class="w-10 h-12 object-cover rounded">
-                    <div>
-                        <h5 class="text-xs font-semibold text-white">${p.name}</h5>
-                        <span class="text-[10px] text-gold">€${p.price}</span>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        }
-
-        function subscribeNewsletter(e) {
-            e.preventDefault();
-            alertCustom('Te has suscrito correctamente a la selección exclusiva de BLACK & WHITE.');
-            e.target.reset();
-        }
-
-        // Custom Minimalist Alert Box replacement
-        function alertCustom(message) {
-            const box = document.createElement('div');
-            box.className = 'fixed bottom-6 right-6 z-50 bg-white text-black font-semibold text-xs uppercase tracking-widest px-6 py-4 shadow-2xl border border-black animate-bounce';
-            box.innerText = message;
-            document.body.appendChild(box);
-            setTimeout(() => box.remove(), 4000);
-        }
-    </script>
+renderChips(); renderGrid(); renderCart(); renderFavCount(); lookTotal();
+</script>
 </body>
 </html>
